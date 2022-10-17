@@ -1,0 +1,34 @@
+{
+  "name": "vite-project",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "animate.css": "^4.1.1",
+    "axios": "^0.27.2",
+    "dayjs": "^1.11.5",
+    "echarts": "^5.4.0",
+    "echarts-liquidfill": "^3.1.0",
+    "echarts-wordcloud": "^2.0.0",
+    "element-plus": "^2.2.17",
+    "normalize.css": "^8.0.1",
+    "sass": "^1.55.0",
+    "unplugin-auto-import": "^0.11.2",
+    "vue": "^3.2.37",
+    "vue-router": "^4.0.13",
+    "webpack-cli": "^4.10.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^3.1.0",
+    "cross-env": "^7.0.3",
+    "mockjs": "^1.1.0",
+    "postcss-px-to-viewport": "^1.1.1",
+    "vite": "^3.1.0",
+    "vite-plugin-mock": "^2.9.6",
+    "webpack": "^4.46.0"
+  }
+}

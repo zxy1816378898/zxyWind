@@ -1,0 +1,38 @@
+import { defineConfig } from "vite";
+import vue from "@vitejs/plugin-vue";
+import AutoImport from "unplugin-auto-import/vite";
+import { viteMockServe } from "vite-plugin-mock";
+var webpack = require('webpack')
+
+export default defineConfig({
+  plugins: [
+    vue(),
+    AutoImport({
+      imports: ["vue", "vue-router"],
+    }),
+  ],
+  resolve: {
+    extensions: [".mjs", ".js", ".ts", ".jsx", ".tsx", ".json", ".vue"],
+    alias: {
+      "@": "/src",
+    },
+  },
+  server: {
+    port: 97,
+    host: true,
+    open: true,
+    hmr: true,
+    proxy: {
+      "/dev-api": {
+        //target: 'http://192.168.1.99:8901/',
+        changeOrigin: true,
+        rewrite: (p) => p.replace(/^\/dev-api/, ""),
+      },
+    },
+  },
+  scripts: {
+    dev: "cross-env NODE_ENV=development vite",
+  },
+  base: "/",
+  publicDir: "public",
+});

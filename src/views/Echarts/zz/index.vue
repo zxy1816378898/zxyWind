@@ -4,9 +4,11 @@
     :options="options"
     ref="childRef"
   ></BaseEchart>
+  <htbutt></htbutt>
 </template>
 
 <script setup>
+import htbutt from "@/components/button";
 import { BaseEchart, echarts } from "@/components/echart";
 const props = defineProps({
   chartData: {
@@ -86,7 +88,7 @@ echarts.graphic.registerShape("CubeTop", CubeTop);
 const VALUE = [100, 200, 300, 400, 300, 200, 100];
 const options = computed(() => {
   return {
-  
+    backgroundColor: "rgb(0 0 0 / 25%)",
     tooltip: {
       trigger: "axis",
       axisPointer: {
@@ -98,11 +100,11 @@ const options = computed(() => {
       },
     },
     grid: {
-      left: "10%",
-      right: "10%",
-      top: "15%",
-      bottom: "10%",
-      containLabel: true,
+      bottom: 150,
+      left: 270,
+      right: 250,
+      top:150
+
     },
     xAxis: {
       type: "category",

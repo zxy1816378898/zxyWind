@@ -4,9 +4,11 @@
     :options="options"
     ref="childRef"
   ></BaseEchart>
+  <htbutt></htbutt>
 </template>
 
 <script setup>
+import htbutt from "@/components/button";
 import { BaseEchart, echarts } from "@/components/echart";
 const props = defineProps({
   chartData: {
@@ -22,18 +24,17 @@ var data = [value, value, value, ];
 
 const options = computed(() => {
   return {
-
+    backgroundColor: "rgb(0 0 0 / 25%)",
     title: [
         {
             text: '当前流量剩余：'+value1,
             left: '50%',
-            top: "58%",
+            top: "38%",
             textAlign: 'center',
             textStyle: {
                 fontSize: '20',
                 fontWeight: '400',
                 color: '#fff',
-                
                 textAlign: 'center',
             },
         },

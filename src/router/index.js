@@ -23,32 +23,32 @@ const router = createRouter({
         {
           path: "/zx",
           name: 'zx',
-          component: () => import("@/views/Echarts/zx.vue"),
+          component: () => import("@/views/Echarts/zx"),
         },
         {
           path: "/zz",
           name: 'zz',
-          component: () => import("@/views/Echarts/zz.vue"),
+          component: () => import("@/views/Echarts/zz"),
         },
         {
           path: "/bt",
           name: 'bt',
-          component: () => import("@/views/Echarts/bt.vue"),
+          component: () => import("@/views/Echarts/bt"),
         },
         {
           path: "/sq",
           name: 'sq',
-          component: () => import("@/views/Echarts/sq.vue"),
+          component: () => import("@/views/Echarts/sq"),
         },
         {
           path: "/cy",
           name: 'cy',
-          component: () => import("@/views/Echarts/cy.vue"),
+          component: () => import("@/views/Echarts/cy"),
         },
         {
           path: "/ld",
           name: 'ld',
-          component: () => import("@/views/Echarts/ld.vue"),
+          component: () => import("@/views/Echarts/ld"),
         },
       ]},
   ],

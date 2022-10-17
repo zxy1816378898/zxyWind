@@ -53,7 +53,7 @@
 import { ref } from "vue";
 import Yiyan from "@/components/yiyan"; // 引入 一言
 import Time from "@/components/time"; // 引入 时间 天气
-import pop from "./pop.vue"; // 引入弹窗
+import pop from "./pop/echartsPop.vue"; // 引入弹窗
 
 const popRef = ref();
 const openPop = () => {
@@ -122,7 +122,7 @@ const wzlbAyy = ref([
   flex-direction: row;
   justify-content: space-around;
   box-sizing: border-box;
-
+  background: rgb(0 0 0 / 15%);
   .left {
     width: 900px;
     height: 100%;

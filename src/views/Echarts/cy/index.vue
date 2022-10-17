@@ -4,9 +4,11 @@
     :options="options"
     ref="childRef"
   ></BaseEchart>
+  <htbutt></htbutt>
 </template>
 
 <script setup>
+import htbutt from "@/components/button";
 import { BaseEchart, echarts, WordcloudEchart } from "@/components/echart";
 const props = defineProps({
   chartData: {
@@ -49,6 +51,7 @@ const list = [
 ];
 const options = computed(() => {
   return {
+    backgroundColor: "rgb(0 0 0 / 25%)",
     tooltip: {
       show: true,
       borderColor: "#fe9a8bb3",

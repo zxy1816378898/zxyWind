@@ -4,9 +4,11 @@
     :options="options"
     ref="childRef"
   ></BaseEchart>
+  <htbutt></htbutt>
 </template>
 
 <script setup>
+import htbutt from "@/components/button";
 import { BaseEchart, echarts } from "@/components/echart";
 const props = defineProps({
   chartData: {
@@ -127,7 +129,7 @@ var seriesOption = [
 
 const options = computed(() => {
   return {
-    color: color,
+    backgroundColor: "rgb(0 0 0 / 25%)",
     title: {
       text: "设备状态",
       subtext: "500个",
@@ -152,7 +154,6 @@ const options = computed(() => {
           type: "image",
           z: 3,
           style: {
-           
             width: 178,
             height: 178,
           },

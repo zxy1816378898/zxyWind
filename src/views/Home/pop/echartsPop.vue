@@ -55,7 +55,7 @@ const echartsAyy = ref([
 ]);
 function getImage(name) {
   //动态引入图片
-  return new URL(`../../assets/images/echarts/${name}.png`, import.meta.url)
+  return new URL(`../../../assets/images/echarts/${name}.png`, import.meta.url)
     .href;
 }
 
@@ -82,6 +82,7 @@ defineExpose({ openClick });
   text-align: center;
   color: aliceblue;
   font-size: 20px;
+
 }
 .main {
   width: 33%;

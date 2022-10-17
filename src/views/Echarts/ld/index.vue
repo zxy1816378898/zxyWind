@@ -1,13 +1,11 @@
 <template>
-  <BaseEchart
-    style="width: 100%"
-    :options="options"
-    ref="childRef"
-  ></BaseEchart>
+  <BaseEchart style="width: 100%" :options="options" ref="childRef"></BaseEchart>
+  <htbutt></htbutt>
 </template>
 
 <script setup>
 import { BaseEchart, echarts } from "@/components/echart";
+import htbutt from "@/components/button";
 const props = defineProps({
   chartData: {
     type: [Array, Object, String, Number],
@@ -136,7 +134,7 @@ function setSpot() {
 }
 const options = computed(() => {
   return {
- 
+    backgroundColor: "rgb(0 0 0 / 25%)",
     polar: {
       center: ["50%", "50%"],
       radius: "60%",

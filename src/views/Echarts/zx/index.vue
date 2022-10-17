@@ -4,9 +4,11 @@
     :options="options"
     ref="childRef"
   ></BaseEchart>
+  <htbutt></htbutt>
 </template>
 
 <script setup>
+import htbutt from "@/components/button";
 import { BaseEchart, echarts } from "@/components/echart";
 const props = defineProps({
   chartData: {
@@ -77,7 +79,7 @@ for (var i = 0; i < json.chart0.xcategory.length; i++) {
 
 const options = computed(() => {
   return {
-   
+    backgroundColor: "rgb(0 0 0 / 25%)",
     tooltip: {
       trigger: "axis",
       axisPointer: {
@@ -124,9 +126,10 @@ const options = computed(() => {
       right: "5%",
     },
     grid: {
-      bottom: 50,
-      left: 70,
-      right: 50,
+      bottom: 150,
+      left: 270,
+      right: 250,
+      top:150
     },
     xAxis: {
       axisLine: {

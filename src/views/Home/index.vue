@@ -79,8 +79,8 @@ const iconArr = ref([
   },
   { name: "qq", iconurl: "qq", url: "", text: "有什么事么~" },
   { name: "message", iconurl: "message", url: "", text: "来封Email" },
-  { name: "TV", iconurl: "TV", url: "", text: "来B站看看~" },
-  { name: "plane", iconurl: "plane", url: "", text: "你懂的~" },
+  { name: "TV", iconurl: "TV", url: "", text: "到B站看看~" },
+  { name: "plane", iconurl: "bird", url: "", text: "来语雀看看~" },
 ]);
 const enter = (val) => {
   text.value = val.text;

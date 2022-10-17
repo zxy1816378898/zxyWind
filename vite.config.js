@@ -24,7 +24,6 @@ export default defineConfig({
     hmr: true,
     proxy: {
       "/dev-api": {
-        //target: 'http://192.168.1.99:8901/',
         changeOrigin: true,
         rewrite: (p) => p.replace(/^\/dev-api/, ""),
       },

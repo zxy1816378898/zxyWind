@@ -1,7 +1,28 @@
-# Vue 3 + Vite
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+风的世界 （页面排版借鉴于imsyy）
+功能
+ 载入动画
+ 站点简介
+ Hitokoto 一言
+ 日期及时间
+ 实时天气
+ Echarts图表
 
-## Recommended IDE Setup
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
+
+
+插件
+
+iconfont 阿里图标库
+MetingAPI By 武恩赐
+韩小韩天气
+Hitokoto 一言
+Element plus
+Echarts
+
+
+未完待续.......
+
+  
+
+

@@ -77,7 +77,7 @@ for (var i = 0; i < json.chart0.xcategory.length; i++) {
 
 const options = computed(() => {
   return {
-    backgroundColor: "#03060F",
+   
     tooltip: {
       trigger: "axis",
       axisPointer: {

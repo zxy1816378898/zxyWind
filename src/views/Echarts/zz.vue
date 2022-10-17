@@ -86,7 +86,7 @@ echarts.graphic.registerShape("CubeTop", CubeTop);
 const VALUE = [100, 200, 300, 400, 300, 200, 100];
 const options = computed(() => {
   return {
-    backgroundColor: "#012366",
+  
     tooltip: {
       trigger: "axis",
       axisPointer: {

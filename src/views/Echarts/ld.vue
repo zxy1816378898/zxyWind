@@ -136,7 +136,7 @@ function setSpot() {
 }
 const options = computed(() => {
   return {
-    backgroundColor: "#0E1327",
+ 
     polar: {
       center: ["50%", "50%"],
       radius: "60%",

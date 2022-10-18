@@ -34,13 +34,13 @@
         <img :src="getImage('link')" class="link" />
         <span>网址列表</span>
       </div>
-      <div class="right-3" >
-        <div class="icon" v-for="item in wzlbAyy" @click="openPop">
+      <div class="right-3">
+        <div class="icon" v-for="item in wzlbAyy" @click="openPop(item.id)">
           <img :src="getImage(`${item.iconurl}`)" class="iconli" />
           <span>{{ item.mc }}</span>
         </div>
+        <pop ref="popRef"></pop>
       </div>
-      <pop ref="popRef"></pop>
     </div>
   </div>
 </template>
@@ -50,10 +50,15 @@ import Yiyan from "@/components/yiyan"; // 引入 一言
 import Time from "@/components/time"; // 引入 时间 天气
 import pop from "./pop/echartsPop.vue"; // 引入弹窗
 const popRef = ref();
-const openPop = () => {
+const openPop = (a) => {
   // 绑定事件
-  popRef.value.openClick();
+  if (a === "6") {
+    popRef.value.openClick();
+  } else {
+    console.log(a);
+  }
 };
+
 const goDetail = (e) => {
   // window.location.href = `${e.url}`; 在原页面打开
   window.open(`${e.url}`); // 打开新窗口
@@ -101,30 +106,12 @@ const enter = (val) => {
 };
 
 const wzlbAyy = ref([
-  {
-    iconurl: "note",
-    mc: "简历",
-  },
-  {
-    iconurl: "cloud",
-    mc: "笔记",
-  },
-  {
-    iconurl: "translate",
-    mc: "翻译",
-  },
-  {
-    iconurl: "compass",
-    mc: "起始页",
-  },
-  {
-    iconurl: "book",
-    mc: "Table",
-  },
-  {
-    iconurl: "lab",
-    mc: "Echarts",
-  },
+  { id: "1", iconurl: "note", mc: "简历" },
+  { id: "2", iconurl: "cloud", mc: "笔记" },
+  { id: "3", iconurl: "translate", mc: "翻译" },
+  { id: "4", iconurl: "compass", mc: "起始页" },
+  { id: "5", iconurl: "book", mc: "Table" },
+  { id: "6", iconurl: "lab", mc: "Echarts" },
 ]);
 </script>
 <style lang="scss" scoped>

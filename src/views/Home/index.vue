@@ -34,8 +34,8 @@
         <img :src="getImage('link')" class="link" />
         <span>网址列表</span>
       </div>
-      <div class="right-3" @click="openPop">
-        <div class="icon" v-for="item in wzlbAyy">
+      <div class="right-3" >
+        <div class="icon" v-for="item in wzlbAyy" @click="openPop">
           <img :src="getImage(`${item.iconurl}`)" class="iconli" />
           <span>{{ item.mc }}</span>
         </div>
@@ -49,12 +49,14 @@ import { ref } from "vue";
 import Yiyan from "@/components/yiyan"; // 引入 一言
 import Time from "@/components/time"; // 引入 时间 天气
 import pop from "./pop/echartsPop.vue"; // 引入弹窗
-const router = useRouter();
 const popRef = ref();
-
+const openPop = () => {
+  // 绑定事件
+  popRef.value.openClick();
+};
 const goDetail = (e) => {
-  // window.location.href = `${e.url}`;
-  window.open(`${e.url}`);
+  // window.location.href = `${e.url}`; 在原页面打开
+  window.open(`${e.url}`); // 打开新窗口
 };
 function getImage(name) {
   //动态引入图片

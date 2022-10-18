@@ -50,6 +50,35 @@ const router = createRouter({
           name: 'ld',
           component: () => import("@/views/Echarts/ld"),
         },
+        {
+          path: "/Translate",
+          name: 'Translate',
+          component: () => import("@/views/Translate/"),
+        },
+        {
+          path: "/Lab",
+          name: 'Lab',
+          component: () => import("@/views/Lab/"),
+        },
+        {
+          path: "/Compass",
+          name: 'Compass',
+          component: () => import("@/views/Compass/"),
+        },
+        {
+          path: "/Book",
+          name: 'Book',
+          component: () => import("@/views/Book/"),
+        },
+        {
+          path: "/Bio",
+          name: 'Bio',
+          component: () => import("@/views/Bio/"),
+        },{
+          path: "/Note",
+          name: 'Note',
+          component: () => import("@/views/Note/"),
+        },
       ]},
   ],
 });

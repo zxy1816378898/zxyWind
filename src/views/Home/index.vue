@@ -13,7 +13,7 @@
         </div>
       </div>
       <div class="left-3">
-        <div class="icon" v-for="item in iconArr" @click="jump">
+        <div class="icon" v-for="item in iconArr" @click="goDetail(item)">
           <img
             :src="getImage(`${item.iconurl}`)"
             class="iconli"
@@ -37,12 +37,7 @@
       <div class="right-3" @click="openPop">
         <div class="icon" v-for="item in wzlbAyy">
           <img :src="getImage(`${item.iconurl}`)" class="iconli" />
-          <span>{{ item.jl }}</span>
-          <span>{{ item.bj }}</span>
-          <span>{{ item.fy }}</span>
-          <span>{{ item.qsy }}</span>
-          <span>{{ item.wzj }}</span>
-          <span>{{ item.sys }}</span>
+          <span>{{ item.mc }}</span>
         </div>
       </div>
       <pop ref="popRef"></pop>
@@ -54,19 +49,16 @@ import { ref } from "vue";
 import Yiyan from "@/components/yiyan"; // 引入 一言
 import Time from "@/components/time"; // 引入 时间 天气
 import pop from "./pop/echartsPop.vue"; // 引入弹窗
-
+const router = useRouter();
 const popRef = ref();
-const openPop = () => {
-  // 绑定事件
-  popRef.value.openClick();
+
+const goDetail = (e) => {
+  // window.location.href = `${e.url}`;
+  window.open(`${e.url}`);
 };
 function getImage(name) {
   //动态引入图片
   return new URL(`../../assets/images/home/${name}.png`, import.meta.url).href;
-}
-function jump(li) {
-  // 跳转链接
-  window.location.href = "https://www.baidu.com";
 }
 //数组
 const text = ref("");
@@ -74,13 +66,33 @@ const iconArr = ref([
   {
     name: "github",
     iconurl: "github",
-    url: "https://www.baidu.com",
+    url: "https://github.com/zxywind-9527",
     text: "去Github看看",
   },
-  { name: "qq", iconurl: "qq", url: "", text: "有什么事么~" },
-  { name: "message", iconurl: "message", url: "", text: "来封Email" },
-  { name: "TV", iconurl: "TV", url: "", text: "到B站看看~" },
-  { name: "plane", iconurl: "bird", url: "", text: "来语雀看看~" },
+  {
+    name: "qq",
+    iconurl: "qq",
+    url: "tencent://AddContact/?fromId=45&fromSubId=1&subcmd=all&uin=1816378898&website=www.oicqzone.com",
+    text: "有什么事么~",
+  },
+  {
+    name: "message",
+    iconurl: "message",
+    url: "https://mail.qq.com/cgi-bin/frame_html?sid=wNK8XuDhRQZIfxNw&r=0032f2d7e46aa273ad1500cd001197f3&lang=zh",
+    text: "来封Email",
+  },
+  {
+    name: "TV",
+    iconurl: "TV",
+    url: "https://space.bilibili.com/549753038?spm_id_from=333.976.0.0",
+    text: "到B站看看~",
+  },
+  {
+    name: "plane",
+    iconurl: "bird",
+    url: "https://www.yuque.com/dashboard",
+    text: "来语雀看看~",
+  },
 ]);
 const enter = (val) => {
   text.value = val.text;
@@ -89,27 +101,27 @@ const enter = (val) => {
 const wzlbAyy = ref([
   {
     iconurl: "note",
-    jl: "简历",
+    mc: "简历",
   },
   {
     iconurl: "cloud",
-    bj: "笔记",
+    mc: "笔记",
   },
   {
     iconurl: "translate",
-    fy: "翻译",
+    mc: "翻译",
   },
   {
     iconurl: "compass",
-    qsy: "起始页",
+    mc: "起始页",
   },
   {
     iconurl: "book",
-    wzj: "Table",
+    mc: "Table",
   },
   {
     iconurl: "lab",
-    sys: "Echarts",
+    mc: "Echarts",
   },
 ]);
 </script>

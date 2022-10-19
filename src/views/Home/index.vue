@@ -18,6 +18,7 @@
             :src="getImage(`${item.iconurl}`)"
             class="iconli"
             @mouseenter="enter(item)"
+            @mouseleave="leave(item)"
           />
         </div>
         <div class="titleAyy">
@@ -106,7 +107,9 @@ const iconArr = ref([
 const enter = (val) => {
   text.value = val.text;
 };
-
+const leave = (val) => {
+  text.value = "";
+};
 const wzlbAyy = ref([
   { id: "1", iconurl: "note", mc: "简历", url: "Bio" },
   { id: "2", iconurl: "cloud", mc: "笔记", url: "Note" },

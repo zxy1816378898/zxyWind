@@ -1,12 +1,7 @@
 <template>
-  <div class="globalHeader">
-    <div class="date">
-      <div class="time">{{ time }}</div>
-      <div class="dateTime">
-        <div>{{ date }}</div>
-        <div>{{ week }}</div>
-      </div>
-    </div>
+  <div class="contain">
+    <div class="time">{{ time }}</div>
+    <div class="ipt"><input class="input" style= "background-color:transparent;border:0;" /></div>
   </div>
 </template>
 
@@ -44,25 +39,13 @@ export default defineComponent({
 
       let month = (myDate.getMonth() + 1).toString().padStart(2, "0");
 
-      let day = myDate
-        .getDate()
-        .toString()
-        .padStart(2, "0");
+      let day = myDate.getDate().toString().padStart(2, "0");
 
-      let hour = myDate
-        .getHours()
-        .toString()
-        .padStart(2, "0");
+      let hour = myDate.getHours().toString().padStart(2, "0");
 
-      let minutes = myDate
-        .getMinutes()
-        .toString()
-        .padStart(2, "0");
+      let minutes = myDate.getMinutes().toString().padStart(2, "0");
 
-      let seconed = myDate
-        .getSeconds()
-        .toString()
-        .padStart(2, "0");
+      let seconed = myDate.getSeconds().toString().padStart(2, "0");
 
       state.date = myDate.getFullYear() + "-" + month + "-" + day;
 
@@ -116,38 +99,44 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-.globalHeader {
-  position: absolute;
-  top: 0;
-  left: 30;
-  width: 414px;
-  height: 220px;
-  padding-top: 10px;
+.contain {
+  display: flex;
+  flex-direction: column;
 
-  .date {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    .time {
-      position: absolute;
-      font-size: 1.1rem;
-      font-family: "UnidreamLED" !important;
-      color: #ffffff;
-      letter-spacing: 2px;
-      margin-top: 60px;
-      margin-left: 20%;
-    }
-    .dateTime {
-      position: absolute;
-      display: flex;
-      flex-direction: row;
-      justify-content: space-around;
-      div {
-        font-size: 1rem;
-        color: #ffffff;
-        letter-spacing: 3px;
-        margin-left: 15px;
-      }
+  .time {
+    width: 160px;
+    height: 50px;
+    font-size: 30px;
+    color: #ffffff;
+    letter-spacing: 3px;
+    margin: 0 auto;
+    padding-top: 120px;
+  }
+  .ipt {
+    width: 260px;
+    height: 50px;
+    font-size: 30px;
+    color: #ffffff;
+    letter-spacing: 3px;
+    margin: 0 auto;
+    margin-top: 20px;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 30px;
+    backdrop-filter: blur(4px);
+    box-shadow: 0 0 5px 1px gray;
+    z-index: 1;
+    display: block;
+    .input {
+      width: 200px;
+      transition: all 0.3s ease-in-out;
+      background-color: transparent;
+      height: 40px;
+      top: 40%;
+      color: white;
+      text-align: center;
+      line-height: 30px;
+      font-size: 40px;
+      border: none;
     }
   }
 }

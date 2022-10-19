@@ -127,7 +127,7 @@ export default defineComponent({
       color: #ffffff;
       letter-spacing: 2px;
       margin-top: 35px;
-      margin-left: 27%;
+      margin-left: 30%;
     }
     .dateTime {
       width: 100%;

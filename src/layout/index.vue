@@ -15,7 +15,6 @@ import Main from "./main";
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-
 }
 
 .main-bg-img {
@@ -23,8 +22,7 @@ import Main from "./main";
   height: 100%;
   position: absolute;
   top: 0;
-  left: 0;
+  margin-right: 200px;
   z-index: -1;
-
 }
 </style>

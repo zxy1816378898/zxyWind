@@ -71,9 +71,9 @@ const router = createRouter({
           component: () => import("@/views/Book/"),
         },
         {
-          path: "/Bio",
-          name: 'Bio',
-          component: () => import("@/views/Bio/"),
+          path: "/Vue3",
+          name: 'Vue3',
+          component: () => import("@/views/Vue3/"),
         },{
           path: "/Note",
           name: 'Note',

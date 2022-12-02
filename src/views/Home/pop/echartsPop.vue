@@ -52,6 +52,11 @@ const echartsAyy = ref([
     iconurl: "ld",
     url: "ld",
   },
+  {
+    type: "气泡图",
+    iconurl: "qp",
+    url: "qp",
+  },
 ]);
 function getImage(name) {
   //动态引入图片
@@ -74,6 +79,7 @@ defineExpose({ openClick });
 
 <style lang="scss" scoped>
 .body {
+  height: 100%;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;

@@ -51,6 +51,11 @@ const router = createRouter({
           component: () => import("@/views/Echarts/ld"),
         },
         {
+          path: "/qp",
+          name: 'qp',
+          component: () => import("@/views/Echarts/qp"),
+        },
+        {
           path: "/Translate",
           name: 'Translate',
           component: () => import("@/views/Translate/"),

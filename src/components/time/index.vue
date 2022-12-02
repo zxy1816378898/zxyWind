@@ -128,6 +128,7 @@ export default defineComponent({
       letter-spacing: 2px;
       margin-top: 35px;
       margin-left: 30%;
+      cursor: pointer;
     }
     .dateTime {
       width: 100%;

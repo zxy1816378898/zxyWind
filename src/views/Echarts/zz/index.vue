@@ -17,21 +17,16 @@ const props = defineProps({
 });
 
 const childRef = ref(null);
-const offsetX = 20;
-const offsetY = 10;
-// 绘制左侧面
 const CubeLeft = echarts.graphic.extendShape({
   shape: {
     x: 0,
     y: 0,
   },
   buildPath: function (ctx, shape) {
-    // 会canvas的应该都能看得懂，shape是从custom传入的
     const xAxisPoint = shape.xAxisPoint;
-    // console.log(shape);
     const c0 = [shape.x, shape.y];
-    const c1 = [shape.x - offsetX, shape.y - offsetY];
-    const c2 = [xAxisPoint[0] - offsetX, xAxisPoint[1] - offsetY];
+    const c1 = [shape.x - 9, shape.y - 9];
+    const c2 = [xAxisPoint[0] - 9, xAxisPoint[1] - 9];
     const c3 = [xAxisPoint[0], xAxisPoint[1]];
     ctx
       .moveTo(c0[0], c0[1])
@@ -41,7 +36,6 @@ const CubeLeft = echarts.graphic.extendShape({
       .closePath();
   },
 });
-// 绘制右侧面
 const CubeRight = echarts.graphic.extendShape({
   shape: {
     x: 0,
@@ -51,8 +45,8 @@ const CubeRight = echarts.graphic.extendShape({
     const xAxisPoint = shape.xAxisPoint;
     const c1 = [shape.x, shape.y];
     const c2 = [xAxisPoint[0], xAxisPoint[1]];
-    const c3 = [xAxisPoint[0] + offsetX, xAxisPoint[1] - offsetY];
-    const c4 = [shape.x + offsetX, shape.y - offsetY];
+    const c3 = [xAxisPoint[0] + 60, xAxisPoint[1] - 30];
+    const c4 = [shape.x + 60, shape.y - 30];
     ctx
       .moveTo(c1[0], c1[1])
       .lineTo(c2[0], c2[1])
@@ -61,7 +55,6 @@ const CubeRight = echarts.graphic.extendShape({
       .closePath();
   },
 });
-// 绘制顶面
 const CubeTop = echarts.graphic.extendShape({
   shape: {
     x: 0,
@@ -69,9 +62,9 @@ const CubeTop = echarts.graphic.extendShape({
   },
   buildPath: function (ctx, shape) {
     const c1 = [shape.x, shape.y];
-    const c2 = [shape.x + offsetX, shape.y - offsetY]; //右点
-    const c3 = [shape.x, shape.y - offsetX];
-    const c4 = [shape.x - offsetX, shape.y - offsetY];
+    const c2 = [shape.x + 60, shape.y - 30];
+    const c3 = [shape.x + 50, shape.y - 38];
+    const c4 = [shape.x - 9, shape.y - 9];
     ctx
       .moveTo(c1[0], c1[1])
       .lineTo(c2[0], c2[1])
@@ -80,73 +73,130 @@ const CubeTop = echarts.graphic.extendShape({
       .closePath();
   },
 });
-// 注册三个面图形
 echarts.graphic.registerShape("CubeLeft", CubeLeft);
 echarts.graphic.registerShape("CubeRight", CubeRight);
 echarts.graphic.registerShape("CubeTop", CubeTop);
-
-const VALUE = [100, 200, 300, 400, 300, 200, 100];
+const VALUE = [4100, 3129, 2209, 3786, 5671];
 const options = computed(() => {
   return {
     backgroundColor: "rgb(0 0 0 / 25%)",
-    tooltip: {
-      trigger: "axis",
-      axisPointer: {
-        type: "shadow",
-      },
-      formatter: function (params, ticket, callback) {
-        const item = params[1];
-        return item.name + " : " + item.value;
+    title: {
+      text: "",
+      top: 32,
+      left: 18,
+      textStyle: {
+        color: "#00F6FF",
+        fontSize: 24,
       },
     },
     grid: {
-      bottom: 150,
-      left: 270,
-      right: 250,
-      top:150
-
+      left: "8%",
+      right: "8%",
+      bottom: "8%",
+      top: "8%",
+      containLabel: true,
     },
     xAxis: {
       type: "category",
-      data: ["1001", "1002", "1003", "1004", "1005", "1006", "1007"],
+      data: ["2018年", "2019年", "2020年", "2021年", "2022年"],
       axisLine: {
         show: true,
         lineStyle: {
-          width: 2,
-          color: "#2B7BD6",
+          color: "#fff",
         },
       },
+      offset: 0,
       axisTick: {
         show: false,
+        // length: 9,
+        alignWithLabel: false,
+        lineStyle: {
+          color: "#fff",
+        },
       },
       axisLabel: {
-        fontSize: 14,
+        fontSize: 16,
+        padding: [0, 0, 0, 30],
       },
     },
     yAxis: {
       type: "value",
       axisLine: {
-        show: true,
+        show: false,
         lineStyle: {
-          width: 2,
-          color: "#2B7BD6",
+          color: "#fff",
         },
       },
       splitLine: {
         show: true,
         lineStyle: {
-          color: "#153D7D",
+          type: "solid",
+          color: "#113d5e",
         },
       },
       axisTick: {
         show: false,
       },
       axisLabel: {
-        fontSize: 14,
+        fontSize: 16,
       },
-      // boundaryGap: ['20%', '20%'],
+      boundaryGap: ["20%", "20%"],
     },
     series: [
+      // {
+      //   type: "custom",
+      //   renderItem: function (params, api) {
+      //     const location = api.coord([api.value(0), api.value(1)]);
+      //     return {
+      //       type: "group",
+      //       children: [
+      //         {
+      //           type: "CubeLeft",
+      //           shape: {
+      //             api,
+      //             xValue: api.value(0),
+      //             yValue: api.value(1),
+      //             x: location[0],
+      //             y: location[1],
+      //             xAxisPoint: api.coord([api.value(0), 0]),
+      //           },
+      //           style: {
+      //             fill: "rgba(7,29,97,.6)",
+      //           },
+      //         },
+      //         {
+      //           type: "CubeRight",
+      //           shape: {
+      //             api,
+      //             xValue: api.value(0),
+      //             yValue: api.value(1),
+      //             x: location[0],
+      //             y: location[1],
+      //             xAxisPoint: api.coord([api.value(0), 0]),
+      //           },
+      //           style: {
+      //             fill: "rgba(10,35,108,.7)",
+      //           },
+      //         },
+      //         {
+      //           type: "CubeTop",
+      //           shape: {
+      //             api,
+      //             xValue: api.value(0),
+      //             yValue: api.value(1),
+      //             x: location[0],
+      //             y: location[1],
+      //             xAxisPoint: api.coord([api.value(0), 0]),
+      //           },
+      //           style: {
+      //             fill: "rgba(11,42,106,.8)",
+      //           },
+      //         },
+      //       ],
+      //     };
+      //   },
+      //   data: MAX,
+      // },
       {
         type: "custom",
         renderItem: (params, api) => {
@@ -168,11 +218,11 @@ const options = computed(() => {
                   fill: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
                     {
                       offset: 0,
-                      color: "#33BCEB",
+                      color: "#0072FF",
                     },
                     {
                       offset: 1,
-                      color: "#337CEB",
+                      color: "#15C0FF",
                     },
                   ]),
                 },
@@ -191,11 +241,11 @@ const options = computed(() => {
                   fill: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
                     {
                       offset: 0,
-                      color: "#28A2CE",
+                      color: "#5301EA",
                     },
                     {
                       offset: 1,
-                      color: "#1A57B7",
+                      color: "#00C0FA",
                     },
                   ]),
                 },
@@ -214,11 +264,11 @@ const options = computed(() => {
                   fill: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
                     {
                       offset: 0,
-                      color: "#43C4F1",
+                      color: "#3B80E2",
                     },
                     {
                       offset: 1,
-                      color: "#28A2CE",
+                      color: "#49BEE5",
                     },
                   ]),
                 },
@@ -234,21 +284,9 @@ const options = computed(() => {
           normal: {
             show: true,
             position: "top",
-            formatter: (e) => {
-              return e.value + "次";
-              /*console.log(e)
-                        switch (e.name) {
-                            case '1001':
-                                return e.value;
-                            case '1002':
-                                return VALUE[1];
-                            case '1003':
-                                return VALUE[2];
-                        }*/
-            },
             fontSize: 16,
-            color: "#43C4F1",
-            offset: [0, -25],
+            color: "#fff",
+            offset: [20, -30],
           },
         },
         itemStyle: {

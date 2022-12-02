@@ -128,7 +128,6 @@ const wzlbAyy = ref([
   flex-direction: row;
   justify-content: space-around;
   box-sizing: border-box;
-  background: rgb(0 0 0 / 15%);
   .left {
     width: 900px;
     height: 100%;
@@ -142,6 +141,7 @@ const wzlbAyy = ref([
       font-family: "Pacifico-Regular" !important;
       color: #fff;
       text-align: center;
+
       &:hover {
         transform: scale(1.01);
         transition: 0.5s;
@@ -160,6 +160,7 @@ const wzlbAyy = ref([
       color: #fff;
       display: flex;
       justify-content: space-between;
+      transition: transform 1s cubic-bezier(.06,.64,1,.24); //贝塞尔曲线
       &:hover {
         transform: scale(1.02);
         transition: 0.5s;
@@ -206,8 +207,9 @@ const wzlbAyy = ref([
       color: #fff;
       margin-left: 200px;
       margin-top: -70px;
+      transition: transform 1s cubic-bezier(.06,.64,1,.24);
       &:hover {
-        background: rgb(0 0 0 / 25%);
+        background: rgba(0, 0, 0, 0.15);
         backdrop-filter: blur(10px);
       }
       &:hover {
@@ -253,6 +255,7 @@ const wzlbAyy = ref([
         background: rgb(0 0 0 / 25%);
         backdrop-filter: blur(10px);
         border-radius: 6px;
+        transition: transform 1s cubic-bezier(.06,.64,1,.24);
         &:hover {
           transform: scale(1.01);
           transition: 0.5s;
@@ -266,6 +269,7 @@ const wzlbAyy = ref([
         background: rgb(0 0 0 / 25%);
         backdrop-filter: blur(10px);
         border-radius: 6px;
+        transition: transform 1s cubic-bezier(.06,.64,1,.24);
         &:hover {
           transform: scale(1.01);
           transition: 0.5s;
@@ -308,13 +312,15 @@ const wzlbAyy = ref([
         font-size: 22px;
         font-family: "Pacifico-Regular" !important;
         color: #fff;
+        transition: transform 1s cubic-bezier(.06,.64,1,.24);
+
         & span {
           position: absolute;
           margin-top: 50px;
           margin-left: 130px;
         }
         &:hover {
-          transform: scale(1.01);
+          transform: scale(1.02);
           transition: 0.5s;
           background: rgb(0 0 0 / 35%);
         }

@@ -2,7 +2,15 @@
   <div class="contain">
     <div class="time">{{ time }}</div>
     <div class="ipt">
-      <input class="input" style="background-color: transparent; border: 0" />
+      <input
+        class="input"
+        style="background-color: transparent; border: 0"
+        name="word"
+        size="30"
+        placeholder="搜索"
+        autocomplete="off"
+        inputmode="search"
+      />
     </div>
   </div>
 </template>
@@ -106,30 +114,32 @@ export default defineComponent({
   height: 100vh;
   display: flex;
   flex-direction: column;
-  background: rgb(0 0 0 / 15%);
   .time {
-    width: 160px;
+    width: 190px;
     height: 50px;
-    font-size: 30px;
+    font-size: 42px;
     color: #ffffff;
     letter-spacing: 3px;
     margin: 0 auto;
-    padding-top: 120px;
+    padding-top: 160px;
   }
   .ipt {
-    width: 260px;
+    width: 350px;
     height: 50px;
     font-size: 30px;
     letter-spacing: 2px;
     margin: 0 auto;
-    margin-top: 20px;
+    padding: 0 20px;
+    margin-top: 30px;
     border-radius: 30px;
     z-index: 1;
     display: block;
     background-color: rgba(255, 255, 255, 0.25);
     backdrop-filter: blur(25px);
-    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: #ffffff;
     box-shadow: rgba(142, 142, 142, 0.19) 0px 6px 15px 0px;
+    transition: color 0.25s, background-color 0.25s, box-shadow 0.25s,
+      left 0.25s, opacity 0.25s, top 0.25s, width 0.25s;
 
     &:hover {
       width: 460px;
@@ -138,16 +148,20 @@ export default defineComponent({
       background-color: rgba(255, 255, 255, 0.484);
     }
     .input {
-      width: 260px;
+      width: 100%;
+      height: 100%;
+      transition: all 0.3s ease-in;
       transition: all 0.3s ease-in-out;
       background-color: transparent;
-      height: 40px;
       text-align: center;
-      line-height: 40px;
+      line-height: 50px;
       font-size: 20px;
+      outline: 0;
+      border: none;
+      color: inherit;
+      background-color: transparent;
       &:hover {
-        width: 360px;
-        line-height: 40px;
+        width: 100%;
       }
     }
   }
@@ -156,6 +170,13 @@ export default defineComponent({
   }
   input:focus {
     outline: none;
+  }
+  input::-webkit-input-placeholder {
+    color: #ffff;
+  }
+  input:focus::-webkit-input-placeholder {
+    text-indent: -999em;
+    z-index: -20;
   }
 }
 </style>

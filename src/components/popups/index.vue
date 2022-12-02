@@ -71,7 +71,7 @@ const clickClose = () => {
   position: absolute;
   top: 0;
   left: 0;
-  background: rgba(#000, 0.4);
+  background: rgba(#000, 0.3);
   width: 100%;
   height: 100%;
   z-index: 9997;
@@ -94,7 +94,7 @@ const clickClose = () => {
   width: 100%;
   height: 100%;
   border-radius: 15px;
-  background: rgb(0 0 0 / 35%);
+  background: rgb(0 0 0 / 25%);
   backdrop-filter: blur(10px);
 }
 

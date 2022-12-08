@@ -9,7 +9,7 @@
         muted=""
         loop=""
       >
-        <source src="../assets/images/Videos.mp4" type="video/mp4" />
+        <source src="../assets/images/Video.mp4" type="video/mp4" />
       </video>
     </div>
 

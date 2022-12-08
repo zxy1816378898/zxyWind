@@ -132,12 +132,14 @@ const wzlbAyy = ref([
     width: 900px;
     height: 100%;
     box-sizing: border-box;
+
     .left-1 {
       width: 240px;
       height: 80px;
       margin-top: 300px;
       margin-left: 220px;
       font-size: 80px;
+      cursor: pointer;
       font-family: "Pacifico-Regular" !important;
       color: #fff;
       text-align: center;
@@ -158,9 +160,10 @@ const wzlbAyy = ref([
       widows: 428px;
       height: 350px;
       color: #fff;
+      cursor: pointer;
       display: flex;
       justify-content: space-between;
-      transition: transform 1s cubic-bezier(.06,.64,1,.24); //贝塞尔曲线
+      transition: transform 1s cubic-bezier(0.06, 0.64, 1, 0.24); //贝塞尔曲线
       &:hover {
         transform: scale(1.02);
         transition: 0.5s;
@@ -168,9 +171,8 @@ const wzlbAyy = ref([
       .mid {
         width: 65%;
         height: 48%;
-        background: rgb(0 0 0 / 25%);
-        backdrop-filter: blur(10px);
-        border-radius: 6px;
+        @include bbl;
+        border-radius: 10px;
         margin-top: 100px;
         margin-left: 200px;
         .mid-text {
@@ -200,17 +202,17 @@ const wzlbAyy = ref([
       width: 583px;
       height: 57px;
       backdrop-filter: blur(1px);
-      border-radius: 6px;
+      border-radius: 10px;
       display: flex;
       justify-content: flex-start;
       flex-direction: row;
       color: #fff;
       margin-left: 200px;
       margin-top: -70px;
-      transition: transform 1s cubic-bezier(.06,.64,1,.24);
+      cursor: pointer;
+      transition: transform 1s cubic-bezier(0.06, 0.64, 1, 0.24);
       &:hover {
-        background: rgba(0, 0, 0, 0.15);
-        backdrop-filter: blur(10px);
+        @include bbl;
       }
       &:hover {
         transform: scale(1.01);
@@ -252,10 +254,11 @@ const wzlbAyy = ref([
         height: 195px;
         margin-top: 140px;
         color: #fff;
-        background: rgb(0 0 0 / 25%);
+        @include bbl;
+        cursor: pointer;
         backdrop-filter: blur(10px);
         border-radius: 6px;
-        transition: transform 1s cubic-bezier(.06,.64,1,.24);
+        transition: transform 1s cubic-bezier(0.06, 0.64, 1, 0.24);
         &:hover {
           transform: scale(1.01);
           transition: 0.5s;
@@ -266,10 +269,11 @@ const wzlbAyy = ref([
         height: 195px;
         margin-top: 140px;
         color: #fff;
-        background: rgb(0 0 0 / 25%);
+        @include bbl;
+        cursor: pointer;
         backdrop-filter: blur(10px);
         border-radius: 6px;
-        transition: transform 1s cubic-bezier(.06,.64,1,.24);
+        transition: transform 1s cubic-bezier(0.06, 0.64, 1, 0.24);
         &:hover {
           transform: scale(1.01);
           transition: 0.5s;
@@ -295,6 +299,7 @@ const wzlbAyy = ref([
     }
     .right-3 {
       height: 422px;
+      cursor: pointer;
       display: flex;
       justify-content: space-around;
       flex-direction: row;
@@ -304,7 +309,7 @@ const wzlbAyy = ref([
       .icon {
         width: 250px;
         height: 130px;
-        background: rgb(0 0 0 / 25%);
+        @include bbl;
         backdrop-filter: blur(10px);
         border-radius: 6px;
         margin-top: 30px;
@@ -312,7 +317,7 @@ const wzlbAyy = ref([
         font-size: 22px;
         font-family: "Pacifico-Regular" !important;
         color: #fff;
-        transition: transform 1s cubic-bezier(.06,.64,1,.24);
+        transition: transform 1s cubic-bezier(0.06, 0.64, 1, 0.24);
 
         & span {
           position: absolute;
@@ -322,7 +327,7 @@ const wzlbAyy = ref([
         &:hover {
           transform: scale(1.02);
           transition: 0.5s;
-          background: rgb(0 0 0 / 35%);
+          @include bbl;
         }
         .iconli {
           position: absolute;

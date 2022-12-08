@@ -32,5 +32,12 @@ export default defineConfig({
   },
   base: "/",
   publicDir: "public",
-  publicPath:"/dist"
+  publicPath:"/dist",
+  css:{
+    preprocessorOptions:{
+      scss:{
+        additionalData:'@import "@/assets/style/_mixin.scss";'
+      }
+    }
+  }
 });

@@ -1,5 +1,5 @@
 // 字体
-@mixin mytext($fs: 18, $ff: 'Regular', $fw: 400, $color: #fff) {
+@mixin mytext($fs: 18, $ff: "Regular", $fw: 400, $color: #fff) {
   font-size: $fs;
   font-family: $ff;
   font-weight: $fw;
@@ -33,19 +33,19 @@
 @mixin p-a($x: 0, $top: 0, $bottom: 0, $left: 0, $right: 0) {
   position: absolute;
 
-  @if $top != 't' {
+  @if $top != "t" {
     top: $top;
   }
 
-  @if $bottom != 'b' {
+  @if $bottom != "b" {
     bottom: $bottom;
   }
 
-  @if $left != 'l' {
+  @if $left != "l" {
     left: $left;
   }
 
-  @if $right != 'r' {
+  @if $right != "r" {
     right: $right;
   }
 
@@ -101,6 +101,15 @@
   background-image: -webkit-gradient($nr);
   background-image: -moz-linear-gradient($nr);
   background-image: -o-linear-gradient($nr);
+}
+
+// 模糊白玻璃背景
+@mixin bbl {
+  background-color: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(1.5px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: rgba(142, 142, 142, 0.19) 0px 6px 15px 0px;
+  color: rgba(255, 255, 255, 0.85);
 }
 
 // 四周阴影

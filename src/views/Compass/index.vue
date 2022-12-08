@@ -1,6 +1,6 @@
 <template>
   <div class="contain">
-    <div class="time">{{ time }}</div>
+    <div class="time">{{ now }}</div>
     <div class="ipt">
       <input
         class="input"
@@ -12,100 +12,34 @@
         inputmode="search"
       />
     </div>
+    <htbutt></htbutt>
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, reactive, toRefs } from "vue";
-
-interface dataType {
-  date: string;
-
-  time: string;
-
-  week: string;
-}
-
-export default defineComponent({
-  name: "GlobalHeader",
-
-  setup() {
-    const list: any[] = [];
-
-    const state: dataType = reactive({
-      date: "",
-
-      time: "",
-
-      week: "",
-
-      showIndex: 0,
-    });
-
-    // 获取时间接口
-
-    const getTime = async () => {
-      var myDate = new Date();
-
-      let month = (myDate.getMonth() + 1).toString().padStart(2, "0");
-
-      let day = myDate.getDate().toString().padStart(2, "0");
-
-      let hour = myDate.getHours().toString().padStart(2, "0");
-
-      let minutes = myDate.getMinutes().toString().padStart(2, "0");
-
-      let seconed = myDate.getSeconds().toString().padStart(2, "0");
-
-      state.date = myDate.getFullYear() + "-" + month + "-" + day;
-
-      state.time = hour + ":" + minutes + ":" + seconed;
-    };
-
-    // 获取当前星期几
-
-    const getWeekDate = () => {
-      var now = new Date();
-
-      var day = now.getDay();
-
-      var weeks = [
-        "星期日",
-
-        "星期一",
-
-        "星期二",
-
-        "星期三",
-
-        "星期四",
-
-        "星期五",
-
-        "星期六",
-      ];
-
-      state.week = weeks[day];
-    };
-
+<script setup>
+import htbutt from "@/components/button";
+// 页面初始化
+onMounted(() => {
+  setInterval(() => {
     getTime();
-
-    getWeekDate();
-
-    setInterval(() => {
-      getWeekDate();
-    }, 1000 * 60 * 60 * 24);
-
-    setInterval(() => {
-      getTime();
-    }, 1000);
-
-    return {
-      ...toRefs(state),
-      list,
-    };
-  },
+  }, 1000);
 });
+
+const now = ref("");
+//时分秒
+const getTime = () => {
+  let hh = new Date().getHours();
+  let mm =
+    new Date().getMinutes() < 10
+      ? "0" + new Date().getMinutes()
+      : new Date().getMinutes();
+  let ss =
+    new Date().getSeconds() < 10
+      ? "0" + new Date().getSeconds()
+      : new Date().getSeconds();
+
+  now.value = hh + ":" + mm; //+ ":"+ ss
+};
 </script>
 
 <style scoped lang="scss">
@@ -115,7 +49,7 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
   .time {
-    width: 190px;
+    width: 120px;
     height: 50px;
     font-size: 42px;
     color: #ffffff;
@@ -134,10 +68,9 @@ export default defineComponent({
     border-radius: 30px;
     z-index: 1;
     display: block;
-    background-color: rgba(255, 255, 255, 0.25);
-    backdrop-filter: blur(25px);
+    @include bbl;
     color: #ffffff;
-    box-shadow: rgba(142, 142, 142, 0.19) 0px 6px 15px 0px;
+
     transition: color 0.25s, background-color 0.25s, box-shadow 0.25s,
       left 0.25s, opacity 0.25s, top 0.25s, width 0.25s;
 

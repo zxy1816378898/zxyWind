@@ -94,7 +94,7 @@ const clickClose = () => {
   width: 100%;
   height: 100%;
   border-radius: 15px;
-  background: rgb(0 0 0 / 25%);
+  @include bbl;
   backdrop-filter: blur(10px);
 }
 

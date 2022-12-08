@@ -22,7 +22,7 @@ import htbutt from "@/components/button";
 onMounted(() => {
   setInterval(() => {
     getTime();
-  }, 1000);
+  }, 0);
 });
 
 const now = ref("");
@@ -59,12 +59,12 @@ const getTime = () => {
   }
   .ipt {
     width: 350px;
-    height: 50px;
+    height: 45px;
     font-size: 30px;
     letter-spacing: 2px;
     margin: 0 auto;
     padding: 0 20px;
-    margin-top: 30px;
+    margin-top: 25px;
     border-radius: 30px;
     z-index: 1;
     display: block;
@@ -87,7 +87,6 @@ const getTime = () => {
       transition: all 0.3s ease-in-out;
       background-color: transparent;
       text-align: center;
-      line-height: 50px;
       font-size: 20px;
       outline: 0;
       border: none;

@@ -1,7 +1,7 @@
 <template>
   <div class="contain">
     <div class="time">{{ now }}</div>
-    <div class="ipt">
+    <div class="ipt" ref="ipt">
       <input
         class="input"
         style="background-color: transparent; border: 0"
@@ -10,14 +10,25 @@
         placeholder="搜索"
         autocomplete="off"
         inputmode="search"
+        @blur="animateWidth('blur')"
+        @focus="animateWidth('focus')"
       />
     </div>
     <htbutt></htbutt>
+    <div class="quoteContainer">
+      <Enyiyan />
+    </div>
   </div>
 </template>
 
 <script setup>
 import htbutt from "@/components/button";
+import Enyiyan from "@/components/enyiyan";
+const ipt = ref(null);
+const animateWidth = (type) => {
+  ipt.value.style.width = type == "focus" ? "420px" : "320px";
+};
+
 // 页面初始化
 onMounted(() => {
   setInterval(() => {
@@ -70,16 +81,9 @@ const getTime = () => {
     display: block;
     @include bbl;
     color: #ffffff;
-
     transition: color 0.25s, background-color 0.25s, box-shadow 0.25s,
       left 0.25s, opacity 0.25s, top 0.25s, width 0.25s;
 
-    &:hover {
-      width: 460px;
-      transform: scale(1.02);
-      transition: 0.5s;
-      background-color: rgba(255, 255, 255, 0.484);
-    }
     .input {
       width: 100%;
       height: 100%;
@@ -97,6 +101,20 @@ const getTime = () => {
       }
     }
   }
+  .quoteContainer {
+    position: absolute;
+    bottom: 125px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 530px;
+    height: 70px;
+    padding: 15px 50px;
+    border-radius: 15px;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: small;
+    text-align: center;
+  }
+
   textarea:focus {
     outline: none;
   }

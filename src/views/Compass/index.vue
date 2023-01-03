@@ -12,7 +12,20 @@
         inputmode="search"
         @blur="animateWidth('blur')"
         @focus="animateWidth('focus')"
+        v-model="wd"
+        @keyup="keyup($event)"
+        @keydown="keydown($event)"
       />
+      <ul class="list-group">
+        <li
+          class="list-group-item list-group-item-text"
+          v-for="(item, index) in arr"
+          :class="{ 'list-group-item-info': index == listIndex }"
+          @click="click($event)"
+        >
+          {{ item }}
+        </li>
+      </ul>
     </div>
     <htbutt></htbutt>
     <div class="quoteContainer">
@@ -24,10 +37,69 @@
 <script setup>
 import htbutt from "@/components/button";
 import Enyiyan from "@/components/enyiyan";
+//输入框变化
 const ipt = ref(null);
 const animateWidth = (type) => {
   ipt.value.style.width = type == "focus" ? "420px" : "320px";
 };
+//百度搜索
+const wd = ref("");
+const arr = ref([]);
+const listIndex = "-1";
+function keyup(event) {
+  //如果我按的是上下键，那么就不发送请求了
+  if (event.keyCode == 38 || event.keyCode == 40 || event.keyCode == 13) return;
+  var url = "https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su";
+  this.$http
+    .jsonp(url, {
+      params: {
+        wd: this.wd,
+      },
+      jsonp: "cb",
+    })
+    .then((res) => {
+      console.log(res);
+      this.arr = res.data.s; //把百度服务器返回的数据传给arr数组
+    });
+}
+//监听鼠标的点击事件
+//如果鼠标点击某一行的文字，则点击事件中的event.explicitOriginalTarget.data代表关键词
+//如果点击某一行的空白处，则点击事件中的event.explicitOriginalTarget.innerText代表关键词
+//可以通过console.log(event)来查看关键词所在的位置
+function click(event) {
+  if (event.explicitOriginalTarget.data != undefined) {
+    this.wd = event.explicitOriginalTarget.data;
+    window.open("https://www.baidu.com/s?wd=" + this.wd);
+  } else if (event.explicitOriginalTarget.innerText != undefined) {
+    this.wd = event.explicitOriginalTarget.innerText;
+    window.open("https://www.baidu.com/s?wd=" + this.wd);
+  }
+}
+//监听键盘的事件
+//如果按down，则增加当前listIndex+1，因此arr[this.listIndex]就能代表当前的词条
+//我们通过对listIndex的修改来得到当前词条在arr中的索引，然后就可以得到词条的具体信息，然后发送请求
+
+function keydown(event) {
+  //下键：40 上键：38
+  if (event.keyCode == 38) {
+    //按的上键
+    this.listIndex--;
+    if (this.listIndex < 0) {
+      this.listIndex = this.arr.length - 1;
+    }
+    this.wd = this.arr[this.listIndex];
+  } else if (event.keyCode == 40) {
+    //说明你按的是下键
+    this.listIndex++;
+    if (this.listIndex > this.arr.length - 1) {
+      this.listIndex = 0;
+    }
+    this.wd = this.arr[this.listIndex];
+  } else if (event.keyCode == 13) {
+    //如果你按的是enter，那么就跳转到百度搜索结果
+    window.open("https://www.baidu.com/s?wd=" + this.wd);
+  }
+}
 
 // 页面初始化
 onMounted(() => {

@@ -1,43 +1,44 @@
 <template>
   <div class="main">
-    <div class="left">
-      <div class="left-1">
-        <div class="text-1">zxyWind<span>.top</span></div>
-      </div>
-      <div class="left-2">
-        <div class="mid">
-          <img :src="getImage('top')" class="top" />
-          <span class="mid-text">Hello&nbsp;World&nbsp;!</span><br />
-          <span class="li">一个建立于 21 世纪的小站，存活于互联网的边缘</span>
-          <img :src="getImage('bott')" class="bott" />
+    <div class="left_aside">
+      <div class="logo">
+        <img class="imgLogo" :src="getImage('logo')">
+        <div class="name">zxyWind<span>.top</span>
         </div>
       </div>
-      <div class="left-3">
+      <div class="message">
+        <div class="contont">
+          <img class="top" :src="getImage('top')" />
+          <span class="text_1">Hello&nbsp;World&nbsp;!</span><br />
+          <span class="text_2">一个建立于 21 世纪的小站，存活于互联网的边缘</span>
+          <img class="bot" :src="getImage('bott')" />
+        </div>
+      </div>
+      <div class="social">
         <div class="icon" v-for="item in iconArr" @click="goDetail(item)">
-          <img
-            :src="getImage(`${item.iconurl}`)"
-            class="iconli"
-            @mouseenter="enter(item)"
-            @mouseleave="leave(item)"
-          />
+          <img :src="getImage(`${item.iconurl}`)" class="iconli" @mouseenter="enter(item)" @mouseleave="leave(item)" />
         </div>
         <div class="titleAyy">
           <div class="li">{{ text }}</div>
         </div>
       </div>
     </div>
-    <div class="right">
-      <div class="right-1">
-        <div class="li-1"><Yiyan></Yiyan></div>
-        <div class="li-2"><Time></Time></div>
+    <div class="right_aside">
+      <div class="card">
+        <div class="row">
+          <Yiyan></Yiyan>
+        </div>
+        <div class="row">
+          <Time></Time>
+        </div>
       </div>
-      <div class="right-2">
-        <img :src="getImage('link')" class="link" />
-        <span>网址列表</span>
-      </div>
-      <div class="right-3">
-        <div class="icon" v-for="item in wzlbAyy" @click="openPop(item)">
-          <img :src="getImage(`${item.iconurl}`)" class="iconli" />
+      <div class="links">
+        <div class="wzlb">
+          <img class="linkLogo" :src="getImage('link')" />
+          <span>网址列表</span>
+        </div>
+        <div class="link" v-for="item in wzlbAyy" @click="openPop(item)">
+          <img class="iconli" :src="getImage(`${item.iconurl}`)" />
           <span>{{ item.mc }}</span>
         </div>
         <pop ref="popRef"></pop>
@@ -126,94 +127,109 @@ const wzlbAyy = ref([
   position: relative;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: center;
+  align-items: center;
   box-sizing: border-box;
-  .left {
-    width: 900px;
+
+  .left_aside {
+    width: 580px;
     height: 100%;
-    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 
-    .left-1 {
-      width: 240px;
-      height: 80px;
-      margin-top: 300px;
-      margin-left: 220px;
-      font-size: 80px;
-      cursor: pointer;
-      font-family: "Pacifico-Regular" !important;
-      color: #fff;
-      text-align: center;
 
-      &:hover {
-        transform: scale(1.01);
-        transition: 0.5s;
+    .logo {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      animation: 0.5s ease 0s 1 normal none running fade;
+      margin-top: 150px;
+      transition: transform 1s cubic-bezier(0.06, 0.64, 1, 0.24);
+      .imgLogo {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
       }
 
-      .text-1 {
+      .name {
+        font-size: 50px;
+        cursor: pointer;
+        font-family: "Pacifico-Regular" !important;
+        color: #fff;
+        text-align: center;
+        margin-left: 15px;
+        transition: transform 1s cubic-bezier(0.06, 0.64, 1, 0.24);
         & span {
           font-size: 35px;
           margin-left: 15px;
         }
       }
     }
-    .left-2 {
-      widows: 428px;
-      height: 350px;
-      color: #fff;
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      transition: transform 1s cubic-bezier(0.06, 0.64, 1, 0.24); //贝塞尔曲线
-      &:hover {
-        transform: scale(1.02);
-        transition: 0.5s;
-      }
-      .mid {
-        width: 65%;
-        height: 48%;
+
+    .message {
+      width: 100%;
+      height: 120px;
+      margin-top: 80px;
+
+      .contont {
+        width: 480px;
+        height: 100%;
+        color: #fff;
         @include bbl;
-        border-radius: 10px;
-        margin-top: 100px;
-        margin-left: 200px;
-        .mid-text {
-          position: absolute;
-          margin-top: 45px;
-          font-size: 18px;
-          font-family: "Pacifico-Regular" !important;
-        }
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        transition: transform 1s cubic-bezier(0.06, 0.64, 1, 0.24); //贝塞尔曲线
         .top,
-        .bott {
+        .bot {
           width: 50px;
           height: 50px;
         }
-        .bott {
-          margin-top: 55px;
-          margin-left: 525px;
+
+        .bot {
+          margin-top: 65px;
+          margin-left: 25px;
         }
-        .li {
+
+        .text_1 {
           position: absolute;
-          font-size: 20px;
+          margin-top: 25px;
           margin-left: 50px;
-          margin-top: 35px;
+          font-size: 18px;
+          font-family: "Pacifico-Regular" !important;
         }
+
+        .text_2 {
+          position: absolute;
+          font-size: 18px;
+          margin-left: 50px;
+          margin-top: 55px;
+        }
+
+
       }
     }
-    .left-3 {
-      width: 583px;
-      height: 57px;
+
+    .social {
+      width: 100%;
+      height: 40px;
       backdrop-filter: blur(1px);
       border-radius: 10px;
       display: flex;
       justify-content: flex-start;
       flex-direction: row;
       color: #fff;
-      margin-left: 200px;
-      margin-top: -70px;
+      margin-left: 0px;
+      margin-top: 20px;
       cursor: pointer;
       transition: transform 1s cubic-bezier(0.06, 0.64, 1, 0.24);
+
       &:hover {
         @include bbl;
+        width: 480px;
       }
+
       &:hover {
         transform: scale(1.01);
         transition: 0.6s;
@@ -222,94 +238,79 @@ const wzlbAyy = ref([
       .titleAyy {
         position: absolute;
         left: 465px;
-        top: 17px;
+        top: 6px;
+
         .li {
           font-size: 18px;
         }
       }
+
       .icon {
-        width: 10%;
+        width: 7%;
+
         .iconli {
           position: absolute;
           width: 28px;
           height: 28px;
-          top: 17px;
+          top: 6px;
           margin-left: 10px;
         }
       }
     }
+
   }
-  .right {
-    width: 900px;
-    height: 100%;
-    box-sizing: border-box;
-    .right-1 {
+
+  .right_aside {
+    @extend.left_aside;
+
+    .card {
       width: 100%;
-      height: 315px;
+      height: 165px;
       display: flex;
       flex-direction: row;
-      justify-content: space-around;
-      .li-1 {
-        width: 412px;
-        height: 195px;
-        margin-top: 140px;
-        color: #fff;
+      justify-content: space-between;
+
+      .row {
+        width: 278px;
         @include bbl;
-        cursor: pointer;
-        backdrop-filter: blur(10px);
-        border-radius: 6px;
-        transition: transform 1s cubic-bezier(0.06, 0.64, 1, 0.24);
-        &:hover {
-          transform: scale(1.01);
-          transition: 0.5s;
-        }
       }
-      .li-2 {
-        width: 412px;
-        height: 195px;
-        margin-top: 140px;
-        color: #fff;
-        @include bbl;
-        cursor: pointer;
-        backdrop-filter: blur(10px);
-        border-radius: 6px;
-        transition: transform 1s cubic-bezier(0.06, 0.64, 1, 0.24);
-        &:hover {
-          transform: scale(1.01);
-          transition: 0.5s;
-        }
-      }
+
+
     }
-    .right-2 {
-      height: 35px;
-      margin-top: 60px;
-      font-size: 25px;
-      color: #fff;
-      font-family: "Pacifico-Regular" !important;
+
+    .links {
+      width: 100%;
+      height: 220px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      margin-top: 30px;
+
+      .wzlb {
+        width: 100%;
+        height: 25px;
+
+        & span {
+          font-size: 23px;
+          font-weight: 500;
+          color: #fff;
+          margin-left: 10px;
+          font-family: "Pacifico-Regular" !important;
+        }
+
+        .linkLogo {
+          width: 25px;
+          height: 25px;
+          position: relative;
+          top: 5px;
+        }
+      }
 
       .link {
-        width: 30px;
-        line-height: 55;
-        margin-left: 25px;
-      }
-      & span {
-        margin-left: 15px;
-        margin-top: 5px;
-      }
-    }
-    .right-3 {
-      height: 422px;
-      cursor: pointer;
-      display: flex;
-      justify-content: space-around;
-      flex-direction: row;
-      flex-wrap: wrap;
-      align-content: flex-start;
-
-      .icon {
-        width: 250px;
-        height: 130px;
         @include bbl;
+        width: 180px;
+        height: 100px;
         backdrop-filter: blur(10px);
         border-radius: 6px;
         margin-top: 30px;
@@ -321,29 +322,33 @@ const wzlbAyy = ref([
 
         & span {
           position: absolute;
-          margin-top: 50px;
-          margin-left: 130px;
+          margin-top: 35px;
+          margin-left: 80px;
         }
+
         &:hover {
           transform: scale(1.02);
           transition: 0.5s;
           @include bbl;
         }
+
         .iconli {
           position: absolute;
           width: 35px;
           height: 35px;
-          top: 45px;
-          margin-left: 80px;
+          top: 35px;
+          margin-left: 30px;
         }
       }
     }
   }
 }
+
 // 去除超链接的默认样式
 .router-link-active {
   text-decoration: none;
 }
+
 a {
   text-decoration: none;
   color: white;

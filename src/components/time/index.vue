@@ -126,8 +126,8 @@ export default defineComponent({
       font-family: "UnidreamLED" !important;
       color: #ffffff;
       letter-spacing: 2px;
-      margin-top: 35px;
-      margin-left: 30%;
+      margin-top: 30px;
+      margin-left: 20%;
       cursor: pointer;
     }
     .dateTime {

@@ -2,7 +2,7 @@
   <div class="main">
     <div class="left_aside">
       <div class="logo">
-        <img class="imgLogo" :src="getImage('logo')">
+        <!-- <img class="imgLogo" :src="getImage('logo')"> -->
         <div class="name">zxyWind<span>.top</span>
         </div>
       </div>
@@ -146,10 +146,12 @@ const wzlbAyy = ref([
       animation: 0.5s ease 0s 1 normal none running fade;
       margin-top: 150px;
       transition: transform 1s cubic-bezier(0.06, 0.64, 1, 0.24);
+
       .imgLogo {
         width: 100px;
         height: 100px;
         border-radius: 50%;
+        @include my_round_animate(25s);
       }
 
       .name {
@@ -160,6 +162,7 @@ const wzlbAyy = ref([
         text-align: center;
         margin-left: 15px;
         transition: transform 1s cubic-bezier(0.06, 0.64, 1, 0.24);
+
         & span {
           font-size: 35px;
           margin-left: 15px;
@@ -180,7 +183,9 @@ const wzlbAyy = ref([
         cursor: pointer;
         display: flex;
         justify-content: space-between;
-        transition: transform 1s cubic-bezier(0.06, 0.64, 1, 0.24); //贝塞尔曲线
+        backdrop-filter: blur(1px);
+        transition: transform 1s cubic-bezier(0.06, 0.64, 1, 0.24);
+
         .top,
         .bot {
           width: 50px;
@@ -206,15 +211,12 @@ const wzlbAyy = ref([
           margin-left: 50px;
           margin-top: 55px;
         }
-
-
       }
     }
 
     .social {
-      width: 100%;
+      width: 482px;
       height: 40px;
-      backdrop-filter: blur(1px);
       border-radius: 10px;
       display: flex;
       justify-content: flex-start;
@@ -237,7 +239,9 @@ const wzlbAyy = ref([
 
       .titleAyy {
         position: absolute;
-        left: 465px;
+        width: 120px;
+        height: auto;
+        left: 355px;
         top: 6px;
 
         .li {
@@ -274,8 +278,6 @@ const wzlbAyy = ref([
         width: 278px;
         @include bbl;
       }
-
-
     }
 
     .links {

@@ -15,6 +15,7 @@ export default defineConfig({
       "@": "/src",
     },
   },
+
   server: {
     port: 97,
     host: true,
@@ -32,12 +33,12 @@ export default defineConfig({
   },
   base: "/",
   publicDir: "public",
-  publicPath:"/dist",
-  css:{
-    preprocessorOptions:{
-      scss:{
-        additionalData:'@import "@/assets/style/_mixin.scss";'
-      }
-    }
-  }
+  publicPath: "/dist",
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: '@import "@/assets/style/_mixin.scss";',
+      },
+    },
+  },
 });

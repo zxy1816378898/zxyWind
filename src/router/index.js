@@ -61,9 +61,9 @@ const router = createRouter({
           component: () => import("@/views/Translate/"),
         },
         {
-          path: "/Lab",
-          name: 'Lab',
-          component: () => import("@/views/Lab/"),
+          path: "/Map",
+          name: 'Map',
+          component: () => import("@/views/Map/"),
         },
         {
           path: "/Compass",

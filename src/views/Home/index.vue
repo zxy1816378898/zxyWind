@@ -1,49 +1,70 @@
 <template>
   <div class="main">
+
     <div class="left_aside">
+
       <div class="logo">
         <!-- <img class="imgLogo" :src="getImage('logo')"> -->
         <div class="name">zxyWind<span>.top</span>
         </div>
+
       </div>
+
       <div class="message">
+
         <div class="contont">
           <img class="top" :src="getImage('top')" />
           <span class="text_1">Hello&nbsp;World&nbsp;!</span><br />
           <span class="text_2">一个建立于 21 世纪的小站，存活于互联网的边缘</span>
           <img class="bot" :src="getImage('bott')" />
         </div>
+
       </div>
+
       <div class="social">
+
         <div class="icon" v-for="item in iconArr" @click="goDetail(item)">
           <img :src="getImage(`${item.iconurl}`)" class="iconli" @mouseenter="enter(item)" @mouseleave="leave(item)" />
         </div>
+
         <div class="titleAyy">
           <div class="li">{{ text }}</div>
         </div>
+
       </div>
     </div>
+
     <div class="right_aside">
+
       <div class="card">
+
         <div class="row">
           <Yiyan></Yiyan>
         </div>
+
         <div class="row">
           <Time></Time>
         </div>
+
       </div>
+
       <div class="links">
+
         <div class="wzlb">
           <img class="linkLogo" :src="getImage('link')" />
           <span>网址列表</span>
         </div>
+
         <div class="link" v-for="item in wzlbAyy" @click="openPop(item)">
           <img class="iconli" :src="getImage(`${item.iconurl}`)" />
           <span>{{ item.mc }}</span>
+
         </div>
+
         <pop ref="popRef"></pop>
       </div>
     </div>
+
   </div>
 </template>
 <script setup>
@@ -116,7 +137,7 @@ const wzlbAyy = ref([
   { id: "2", iconurl: "cloud", mc: "笔记", url: "Note" },
   { id: "3", iconurl: "translate", mc: "翻译", url: "Translate" },
   { id: "4", iconurl: "compass", mc: "起始页", url: "Compass" },
-  { id: "5", iconurl: "book", mc: "Table", url: "Lab" },
+  { id: "5", iconurl: "map", mc: "Map", url: "Map" },
   { id: "6", iconurl: "lab", mc: "Echarts" },
 ]);
 </script>

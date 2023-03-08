@@ -61,7 +61,9 @@
 
         </div>
 
-        <pop ref="popRef"></pop>
+          <pop ref="popRef"></pop>
+ 
+
       </div>
     </div>
 
@@ -256,6 +258,10 @@ const wzlbAyy = ref([
       &:hover {
         transform: scale(1.01);
         transition: 0.6s;
+      }
+
+      .icon {
+        position: relative;
       }
 
       .titleAyy {

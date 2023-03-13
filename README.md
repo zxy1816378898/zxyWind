@@ -24,6 +24,16 @@ a) 克隆服务端项目并运行
 npm run dev
 ```
 
+#### 项目预览
+
+![首页](https://raw.githubusercontent.com/zxy1816378898/pic/main/1.png)
+
+![地图](https://raw.githubusercontent.com/zxy1816378898/pic/main/2.png)
+
+![Echarts](https://raw.githubusercontent.com/zxy1816378898/pic/main/3.png)
+
+![导航页](https://raw.githubusercontent.com/zxy1816378898/pic/main/4.png)
+
 #### 技术栈
 
 Vue3 /
@@ -32,5 +42,3 @@ Element-UI /
 Axios /
 Vuex /
 Vite
-
-

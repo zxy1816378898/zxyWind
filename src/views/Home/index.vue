@@ -61,8 +61,8 @@
 
         </div>
 
-          <pop ref="popRef"></pop>
- 
+        <pop ref="popRef"></pop>
+
 
       </div>
     </div>
@@ -135,7 +135,7 @@ const leave = (val) => {
   text.value = "";
 };
 const wzlbAyy = ref([
-  { id: "1", iconurl: "note", mc: "Vue3", url: "Vue3" },
+  { id: "1", iconurl: "music", mc: "Music", url: "Music" },
   { id: "2", iconurl: "cloud", mc: "笔记", url: "Note" },
   { id: "3", iconurl: "translate", mc: "翻译", url: "Translate" },
   { id: "4", iconurl: "compass", mc: "起始页", url: "Compass" },

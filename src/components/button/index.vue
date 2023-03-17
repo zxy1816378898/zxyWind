@@ -1,16 +1,12 @@
 <template>
   <div class="button" @click="goDetail()">
-    <img :src="getImage('ht')" class="ht" />
+    <span class="iconfont icon-huitui ht"></span>
   </div>
 </template>
 
 <script setup>
 const router = useRouter();
-function getImage(name) {
-  //动态引入图片
-  return new URL(`../../assets/images/echarts/${name}.png`, import.meta.url)
-    .href;
-}
+
 const goDetail = (e) => {
   router.push({
     path: `/Home`,
@@ -25,9 +21,10 @@ const goDetail = (e) => {
   z-index: 999;
   cursor: pointer;
   margin: 0 25px;
+
   .ht {
-    width: 100px;
-    height: 100px;
+    font-size: 60px;
+    color: aliceblue;
   }
 }
 </style>

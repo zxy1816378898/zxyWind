@@ -4,7 +4,7 @@
     <div class="left_aside">
 
       <div class="logo">
-        <!-- <img class="imgLogo" :src="getImage('logo')"> -->
+
         <div class="name">zxyWind<span>.top</span>
         </div>
 
@@ -13,10 +13,10 @@
       <div class="message">
 
         <div class="contont">
-          <img class="top" :src="getImage('top')" />
+          <span class="top iconfont icon-a-shuangyinhaozuo3x"></span>
           <span class="text_1">Hello&nbsp;World&nbsp;!</span><br />
           <span class="text_2">一个建立于 21 世纪的小站，存活于互联网的边缘</span>
-          <img class="bot" :src="getImage('bott')" />
+          <span class="bot iconfont icon-a-shuangyinhaoyou3x"></span>
         </div>
 
       </div>
@@ -24,7 +24,7 @@
       <div class="social">
 
         <div class="icon" v-for="item in iconArr" @click="goDetail(item)">
-          <img :src="getImage(`${item.iconurl}`)" class="iconli" @mouseenter="enter(item)" @mouseleave="leave(item)" />
+          <span :class="item.iconurl" class="iconli" @mouseenter="enter(item)" @mouseleave="leave(item)"></span>
         </div>
 
         <div class="titleAyy">
@@ -51,20 +51,19 @@
       <div class="links">
 
         <div class="wzlb">
-          <img class="linkLogo" :src="getImage('link')" />
           <span>网址列表</span>
         </div>
 
         <div class="link" v-for="item in wzlbAyy" @click="openPop(item)">
-          <img class="iconli" :src="getImage(`${item.iconurl}`)" />
+          <span :class="item.icon" class="iconli"></span>
           <span>{{ item.mc }}</span>
 
         </div>
 
         <pop ref="popRef"></pop>
 
-
       </div>
+
     </div>
 
   </div>
@@ -90,40 +89,36 @@ const goDetail = (e) => {
   // window.location.href = `${e.url}`; 在原页面打开
   window.open(`${e.url}`); // 打开新窗口
 };
-function getImage(name) {
-  //动态引入图片
-  return new URL(`../../assets/images/home/${name}.png`, import.meta.url).href;
-}
 //数组
 const text = ref("");
 const iconArr = ref([
   {
     name: "github",
-    iconurl: "github",
+    iconurl: "iconfont icon-tushu",
     url: "https://github.com/zxywind-9527",
     text: "去Github看看",
   },
   {
     name: "qq",
-    iconurl: "qq",
+    iconurl: "iconfont icon-QQ",
     url: "tencent://AddContact/?fromId=45&fromSubId=1&subcmd=all&uin=1816378898&website=www.oicqzone.com",
     text: "有什么事么~",
   },
   {
     name: "message",
-    iconurl: "message",
+    iconurl: "iconfont icon-envelope-full",
     url: "https://mail.qq.com/cgi-bin/frame_html?sid=wNK8XuDhRQZIfxNw&r=0032f2d7e46aa273ad1500cd001197f3&lang=zh",
     text: "来封Email",
   },
   {
     name: "TV",
-    iconurl: "TV",
+    iconurl: "iconfont icon-bilibili",
     url: "https://space.bilibili.com/549753038?spm_id_from=333.976.0.0",
     text: "到B站看看~",
   },
   {
     name: "plane",
-    iconurl: "bird",
+    iconurl: "iconfont icon-paperPlane-fill",
     url: "https://www.yuque.com/dashboard",
     text: "来语雀看看~",
   },
@@ -135,12 +130,12 @@ const leave = (val) => {
   text.value = "";
 };
 const wzlbAyy = ref([
-  { id: "1", iconurl: "music", mc: "Music", url: "Music" },
-  { id: "2", iconurl: "cloud", mc: "笔记", url: "Note" },
-  { id: "3", iconurl: "translate", mc: "翻译", url: "Translate" },
-  { id: "4", iconurl: "compass", mc: "起始页", url: "Compass" },
-  { id: "5", iconurl: "map", mc: "Map", url: "Map" },
-  { id: "6", iconurl: "lab", mc: "Echarts" },
+  { id: "1", icon: "iconfont icon-wangyiyunyinle", mc: "Music", url: "Music" },
+  { id: "2", icon: "iconfont icon-biji", mc: "笔记", url: "Note" },
+  { id: "3", icon: "iconfont icon-shuyi_fanyi-36", mc: "翻译", url: "Translate" },
+  { id: "4", icon: "iconfont icon-compass", mc: "起始页", url: "Compass" },
+  { id: "5", icon: "iconfont icon-ditu", mc: "Map", url: "Map" },
+  { id: "6", icon: "iconfont icon-yaoji", mc: "Echarts" },
 ]);
 </script>
 <style lang="scss" scoped>
@@ -211,8 +206,7 @@ const wzlbAyy = ref([
 
         .top,
         .bot {
-          width: 50px;
-          height: 50px;
+          font-size: 45px;
         }
 
         .bot {
@@ -262,6 +256,7 @@ const wzlbAyy = ref([
 
       .icon {
         position: relative;
+
       }
 
       .titleAyy {
@@ -277,12 +272,11 @@ const wzlbAyy = ref([
       }
 
       .icon {
-        width: 7%;
+        width: 10%;
 
         .iconli {
           position: absolute;
-          width: 28px;
-          height: 28px;
+          font-size: 27px;
           top: 6px;
           margin-left: 10px;
         }
@@ -325,15 +319,10 @@ const wzlbAyy = ref([
           font-weight: 500;
           color: #fff;
           margin-left: 10px;
+          letter-spacing:5px;
           font-family: "Pacifico-Regular" !important;
         }
 
-        .linkLogo {
-          width: 25px;
-          height: 25px;
-          position: relative;
-          top: 5px;
-        }
       }
 
       .link {
@@ -363,9 +352,8 @@ const wzlbAyy = ref([
 
         .iconli {
           position: absolute;
-          width: 35px;
-          height: 35px;
-          top: 35px;
+          font-size: 30px;
+          top: -5px;
           margin-left: 30px;
         }
       }

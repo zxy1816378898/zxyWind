@@ -24,7 +24,7 @@
     <!-- 搜索框 -->
     <div class="search" @click="inputClick">
       <input id="tipinput" :value="inputSearchVal" type="text">
-      <img class="searchIMG" :src="searchIMG">
+      <span class="iconfont icon-a-ziyuan290 searchIMG"></span>
     </div>
   </div>
 </template>
@@ -33,7 +33,6 @@
 import htbutt from "@/components/button";
 import AMapLoader from '@amap/amap-jsapi-loader';
 import searchIMG from '@/assets/images/home/search.png'
-import localIMG from '@/assets/images/home/local.png'
 import { shallowRef } from '@vue/reactivity';
 const map = shallowRef(null);
 const inputSearchVal = ref('');
@@ -315,10 +314,11 @@ onMounted(() => {
   }
 
   .searchIMG {
-    width: 36px;
-    height: 36px;
+    font-size: 45px;
+    color: #7fffd4;
     position: relative;
-    top: 7px;
+    top: -5px;
+    right: 5px;
   }
 
   // 去除input框点击时候的黑线，type是什么类型就去除什么类型

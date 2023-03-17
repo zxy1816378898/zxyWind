@@ -4,7 +4,7 @@
       <div class="body">
         <div class="main" v-for="item in echartsAyy" @click="goDetail(item)">
           <div class="img">
-            <img :src="getImage(item.iconurl)" class="iconli" />
+            <span :class="item.icon" class="iconli"></span>
           </div>
           <div class="li">
             {{ item.type }}
@@ -24,45 +24,40 @@ const isVisible = ref(false);
 const echartsAyy = ref([
   {
     type: "柱状图",
-    iconurl: "zz",
+    icon: "iconfont icon-zhuzhuangtu",
     url: "zz",
   },
   {
     type: "折线图",
-    iconurl: "zx",
+    icon: "iconfont icon-tubiao_zhexiantu",
     url: "zx",
   },
   {
     type: "饼状图",
-    iconurl: "bt",
+    icon: "iconfont icon-bingzhuangtu",
     url: "bt",
   },
   {
     type: "水球图",
-    iconurl: "sq",
+    icon: "iconfont icon-shuiqiutu",
     url: "sq",
   },
   {
     type: "词云图",
-    iconurl: "cy",
+    icon: "iconfont icon-ciyuntu",
     url: "cy",
   },
   {
     type: "雷达图",
-    iconurl: "ld",
+    icon: "iconfont icon-leidatu",
     url: "ld",
   },
   {
     type: "气泡图",
-    iconurl: "qp",
+    icon: "iconfont icon-qipao",
     url: "qp",
   },
 ]);
-function getImage(name) {
-  //动态引入图片
-  return new URL(`../../../assets/images/echarts/${name}.png`, import.meta.url)
-    .href;
-}
 
 const goDetail = (e) => {
   router.push({
@@ -90,13 +85,15 @@ defineExpose({ openClick });
   font-size: 20px;
 
 }
+
 .main {
   width: 33%;
   height: 33%;
   padding-bottom: 150px;
+
   .iconli {
-    width: 100px;
-    height: 100px;
+    font-size: 60px;
+
     &:hover {
       transform: scale(1.1);
       transition: 0.5s;

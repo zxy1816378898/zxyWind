@@ -5,7 +5,7 @@
       <div class="pop-main">
         <div class="pop-box-head">
           <div class="name">{{ title }}</div>
-          <img @click="clickClose" class="close-img" :src="closeImg" alt="" />
+          <span @click="clickClose" class="iconfont icon-guanbishixin close-img"></span>
         </div>
 
         <div class="pop-box-content">
@@ -76,6 +76,7 @@ const clickClose = () => {
   height: 100%;
   z-index: 9997;
 }
+
 .pop-box {
   width: 950px;
   height: 650px;
@@ -102,6 +103,7 @@ const clickClose = () => {
   width: 100%;
   height: 85px;
   position: relative;
+
   .name {
     font-size: 28px;
     font-family: "HYLXJT";
@@ -121,11 +123,11 @@ const clickClose = () => {
 
   .close-img {
     cursor: pointer;
-    width: 27px;
-    height: 27px;
+    font-size: 30px;
     position: absolute;
     bottom: 30px;
     right: 30px;
+
     &:hover {
       transform: scale(1.21);
       transition: 0.5s;
@@ -139,5 +141,4 @@ const clickClose = () => {
   overflow: auto;
   padding: 20px 40px 48px 40px;
   box-sizing: border-box;
-}
-</style>
+}</style>

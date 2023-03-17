@@ -10,7 +10,7 @@
 
         <div class="li" v-for="item in leftAyy">
 
-          <img class="icon" :src="getImage(`${item.icon}`)" />
+          <span :class="item.icon" class="icon"></span>
 
           <div class="name">{{ item.name }}</div>
 
@@ -78,27 +78,27 @@ import htbutt from "@/components/button";
 const input = ref('')
 const leftAyy = ref([
   {
-    icon: "home",
+    icon: "iconfont icon-shouye",
     name: "首页",
   },
   {
-    icon: "ranking_list",
+    icon: "iconfont icon-paihangbang",
     name: "排行榜",
   },
   {
-    icon: "song_list",
+    icon: "iconfont icon-gedan",
     name: "歌单",
   },
   {
-    icon: "mv",
+    icon: "iconfont icon-MV",
     name: "MV",
   },
   {
-    icon: "singer",
+    icon: "iconfont icon-geshou",
     name: "歌手",
   },
   {
-    icon: "my_music",
+    icon: "iconfont icon-wodeyinle",
     name: "我的音乐",
   },
 ])
@@ -174,8 +174,7 @@ function getImage(name) {
         transition: transform 1s cubic-bezier(0.06, 0.64, 1, 0.24);
 
         .icon {
-          width: 30px;
-          height: 30px;
+          font-size: 27px;
         }
 
         .name {

@@ -1,12 +1,19 @@
 <template>
   <div class="main">
-    <img class="main-bg-img" src="https://api.vvhan.com/api/view">
+    <!-- 随机图片 -->
+    <img class="main-bg-img" :src="getImage(`background${randomNum}`)">
     <Main></Main>
   </div>
 </template>
 
 <script setup>
 import Main from "./main";
+// 生成随机数
+let randomNum = Math.ceil(Math.random() * 8)
+function getImage(name) {
+  //动态引入图片
+  return new URL(`../assets/images/${name}.webp`, import.meta.url).href;
+}
 </script>
 
 <style lang="scss" scoped>

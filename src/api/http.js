@@ -51,7 +51,7 @@ const hotList = () => {
   return api.get("/playlist/hot", {});
 };
 // 歌单列表
-const playList = ({ order = "hot", cat = "", limit = 50, offset = 0 }) => {
+const playList = ({ order = "hot", cat = "", limit = 5, offset = 0 }) => {
   return api.get(
     `/top/playlist?limit=${limit}&order=${order}&cat=${cat}&offset=${offset}`,
     {}

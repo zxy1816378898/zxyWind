@@ -1,23 +1,6 @@
 <template>
-  <!-- 回退按钮 -->
-  <htbutt></htbutt>
   <!-- 主体 -->
   <div class="main">
-    <!-- 左侧侧边栏 -->
-    <div class="main_left">
-      <!-- 标签 -->
-      <div class="main_left_nav">
-
-        <div class="li" v-for="item in leftAyy">
-
-          <span :class="item.icon" class="icon"></span>
-
-          <div class="name">{{ item.name }}</div>
-
-        </div>
-
-      </div>
-    </div>
     <!-- 右侧主体 -->
     <div class="main_right">
       <!-- 搜索框 -->
@@ -40,22 +23,21 @@
           <h2>流行</h2>
           <h2>摇滚</h2>
           <h2>电子</h2>
-          <span></span>
         </div>
 
         <div class="main_right_hot_recommend_box">
 
           <div class="main_right_hot_recommend_li" v-for="item in hot_recommend_liAyy">
 
-            <img class="img" :src="getImage(`${item.pic} `)" />
+            <img class="img" :src="`${item.coverImgUrl}`" />
 
-            <div class="text">{{ item.text }}</div>
+            <div class="text">{{ item.description }}</div>
 
-            <div class="lable">{{ item.lable }}</div>
+            <div class="lable">#{{ item.tags[0] }} #{{ item.tags[1] }} #{{ item.tags[2] }}</div>
 
             <div class="mini_lable">
               <span class="iconfont icon-github"></span>
-              {{ view_counts }}万/{{ song_counts }}首
+              {{ playCount_W }}万/{{ item.trackCount }}首
 
             </div>
 
@@ -80,72 +62,15 @@
 </template>
 
 <script setup>
-import htbutt from "@/components/button";
-import { getBanner } from '../../api/http';
+import { getBanner, playList } from '@/api/http.js';
 const input = ref('');
-const view_counts = ref('21.23');
-const song_counts = ref('12')
-const leftAyy = ref([
-  {
-    icon: "iconfont icon-shouye",
-    name: "首页",
-  },
-  {
-    icon: "iconfont icon-paihangbang",
-    name: "排行榜",
-  },
-  {
-    icon: "iconfont icon-gedan",
-    name: "歌单",
-  },
-  {
-    icon: "iconfont icon-MV",
-    name: "MV",
-  },
-  {
-    icon: "iconfont icon-geshou",
-    name: "歌手",
-  },
-  {
-    icon: "iconfont icon-wodeyinle",
-    name: "我的音乐",
-  },
-]) //左侧 侧边栏
-const hot_recommend_liAyy = ([
-  {
-    pic: "img1",
-    text: "2023网络超好听流行歌曲推荐(更新快)",
-    lable: "#华语 #流行 #网络歌曲"
-  },
-  {
-    pic: "img2",
-    text: "一直不喜欢，纷纷前来梨园踏青观景",
-    lable: "#华语 #流行 #网络歌曲"
-  },
-  {
-    pic: "img3",
-    text: "送给每个因为爱情向现实抗争过的人",
-    lable: "#华语 #流行 #网络歌曲"
-  },
-  {
-    pic: "img4",
-    text: "【日系】当古典的交响乐遇上鲜活的ACG",
-    lable: "#华语 #流行 #网络歌曲"
-  },
-  {
-    pic: "img5",
-    text: "没有动态的日子，都在认真生活",
-    lable: "#华语 #流行 #网络歌曲"
-  },
-]) // 热门歌曲
+const playCount_W = ref('')
+const hot_recommend_liAyy = ref([]) // 热门歌单
 const main_right_banner_Ayy = ref([{}]) //轮播图详情
-function getImage(name) {
-  //动态引入图片
-  return new URL(`../../assets/images/music/${name}.png`, import.meta.url).href;
-}
 
 onMounted(() => {
   Banner();// 轮播图
+  getPlayList();//热门歌单
 })
 
 const Banner = () => {
@@ -154,7 +79,14 @@ const Banner = () => {
   });
 };
 
-
+const getPlayList = () => {
+  playList({}).then((res) => {
+    hot_recommend_liAyy.value = res.data.playlists
+    for (let i = 0; i < res.data.playlists.length; i++) {
+      playCount_W.value = (res.data.playlists[i].playCount / 10000).toFixed(2);
+    }
+  });
+};
 
 
 </script>
@@ -168,7 +100,6 @@ const Banner = () => {
   justify-content: space-around;
   align-items: center;
   box-sizing: border-box;
-
 
   .main_left {
     width: 300px;
@@ -218,13 +149,12 @@ const Banner = () => {
   .main_right {
     width: 1400px;
     height: 1080px;
-    border: 1px solid red;
     overflow-y: auto;
 
     .main_right_search {
       width: 100%;
       height: 110px;
-      border: 1px solid red;
+
 
       .el-input {
         width: 250px;
@@ -237,7 +167,6 @@ const Banner = () => {
     .main_right_banner {
       width: 100%;
       height: 230px;
-      border: 1px solid red;
 
       :deep(.el-carousel__container) {
         width: 92%;
@@ -252,13 +181,13 @@ const Banner = () => {
       .banner_image {
         width: 570px;
         height: 200px;
+        border-radius: 8px;
       }
     }
 
     .main_right_hot_recommend {
       width: 100%;
       height: 420px;
-      border: 1px solid red;
       display: flex;
       flex-direction: column;
       justify-content: space-around;
@@ -281,17 +210,6 @@ const Banner = () => {
 
         h2:hover {
           color: #0FF;
-        }
-
-        & span {
-          width: 115px;
-          height: 12px;
-          position: absolute;
-          background: #0FF;
-          opacity: 0.6;
-          left: 487px;
-          top: 380px;
-          z-index: -1;
         }
       }
 
@@ -369,7 +287,7 @@ const Banner = () => {
     .main_right_new_grounding {
       width: 100%;
       height: 530px;
-      border: 1px solid red;
+
     }
 
     .main_right_new_mv {

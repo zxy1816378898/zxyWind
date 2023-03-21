@@ -26,14 +26,14 @@
       </div>
       <!-- 轮播图 -->
       <div class="main_right_banner">
-        <el-carousel :interval="4000" type="card" height="200px">
-          <el-carousel-item v-for="item in 6" :key="item">
-            <h3 text="2xl" justify="center">{{ item }}</h3>
+        <el-carousel :interval="4000" type="card">
+          <el-carousel-item v-for="item in main_right_banner_Ayy" :key="item">
+            <img :src="`${item.imageUrl}`" class="banner_image">
           </el-carousel-item>
         </el-carousel>
       </div>
       <!-- 热门推荐 -->
-      <div class="main_right_hot_recommend">
+      <div class=" main_right_hot_recommend">
 
         <div class="main_right_hot_recommend_title">热门推荐
           <h2>华语</h2>
@@ -47,11 +47,17 @@
 
           <div class="main_right_hot_recommend_li" v-for="item in hot_recommend_liAyy">
 
-            <img class="img" :src="getImage(`${item.pic}`)" />
+            <img class="img" :src="getImage(`${item.pic} `)" />
 
             <div class="text">{{ item.text }}</div>
 
             <div class="lable">{{ item.lable }}</div>
+
+            <div class="mini_lable">
+              <span class="iconfont icon-github"></span>
+              {{ view_counts }}万/{{ song_counts }}首
+
+            </div>
 
           </div>
 
@@ -75,7 +81,10 @@
 
 <script setup>
 import htbutt from "@/components/button";
-const input = ref('')
+import { getBanner } from '../../api/http';
+const input = ref('');
+const view_counts = ref('21.23');
+const song_counts = ref('12')
 const leftAyy = ref([
   {
     icon: "iconfont icon-shouye",
@@ -101,7 +110,7 @@ const leftAyy = ref([
     icon: "iconfont icon-wodeyinle",
     name: "我的音乐",
   },
-])
+]) //左侧 侧边栏
 const hot_recommend_liAyy = ([
   {
     pic: "img1",
@@ -128,11 +137,25 @@ const hot_recommend_liAyy = ([
     text: "没有动态的日子，都在认真生活",
     lable: "#华语 #流行 #网络歌曲"
   },
-])
+]) // 热门歌曲
+const main_right_banner_Ayy = ref([{}]) //轮播图详情
 function getImage(name) {
   //动态引入图片
   return new URL(`../../assets/images/music/${name}.png`, import.meta.url).href;
 }
+
+onMounted(() => {
+  Banner();// 轮播图
+})
+
+const Banner = () => {
+  getBanner({}).then((res) => {
+    main_right_banner_Ayy.value = res.data.banners
+  });
+};
+
+
+
 
 </script>
 <style lang="scss" scoped>
@@ -216,20 +239,19 @@ function getImage(name) {
       height: 230px;
       border: 1px solid red;
 
-      .el-carousel__item h3 {
-        color: #475669;
-        opacity: 0.75;
-        line-height: 200px;
-        margin: 0;
-        text-align: center;
+      :deep(.el-carousel__container) {
+        width: 92%;
+        height: 230px;
+        margin: 0 4%;
       }
 
-      .el-carousel__item:nth-child(2n) {
-        background-color: #99a9bf;
+      :deep(.el-carousel__mask) {
+        background-color: rgba(0, 0, 0, 0.01)
       }
 
-      .el-carousel__item:nth-child(2n + 1) {
-        background-color: #d3dce6;
+      .banner_image {
+        width: 570px;
+        height: 200px;
       }
     }
 
@@ -321,7 +343,18 @@ function getImage(name) {
             top: 50px;
             color: #0FF;
             text-align: left;
+          }
 
+          .mini_lable {
+            width: 100px;
+            position: absolute;
+            top: 25px;
+            right: 30px;
+            line-height: 30px;
+            border-radius: 0 4px 0 0;
+            background: -moz-linear-gradient(left, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, .5) 97%, rgba(0, 0, 0, .5) 100%);
+            background: -webkit-linear-gradient(left, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, .5) 97%, rgba(0, 0, 0, .5) 100%);
+            background: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, .5) 97%, rgba(0, 0, 0, .5) 100%);
           }
 
           &:hover {

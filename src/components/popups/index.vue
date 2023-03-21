@@ -17,8 +17,7 @@
 </template>
 
 <script setup>
-import { isPercentage } from "@/utils";
-import closeImg from "@/assets/images/close.png";
+import { isPercentage } from "../../utils/validates";
 const props = defineProps({
   width: {
     type: [Number, String],

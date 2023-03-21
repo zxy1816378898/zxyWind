@@ -94,7 +94,7 @@ const text = ref("");
 const iconArr = ref([
   {
     name: "github",
-    iconurl: "iconfont icon-tushu",
+    iconurl: "iconfont icon-github",
     url: "https://github.com/zxywind-9527",
     text: "去Github看看",
   },
@@ -137,6 +137,7 @@ const wzlbAyy = ref([
   { id: "5", icon: "iconfont icon-ditu", mc: "Map", url: "Map" },
   { id: "6", icon: "iconfont icon-yaoji", mc: "Echarts" },
 ]);
+
 </script>
 <style lang="scss" scoped>
 .main {
@@ -319,7 +320,7 @@ const wzlbAyy = ref([
           font-weight: 500;
           color: #fff;
           margin-left: 10px;
-          letter-spacing:5px;
+          letter-spacing: 5px;
           font-family: "Pacifico-Regular" !important;
         }
 

@@ -36,7 +36,7 @@
             <div class="lable">#{{ item.tags[0] }} #{{ item.tags[1] }} #{{ item.tags[2] }}</div>
 
             <div class="mini_lable">
-              <span class="iconfont icon-github"></span>
+              <span class="iconfont icon-erji"></span>
               {{ playCount_W }}万/{{ item.trackCount }}首
 
             </div>
@@ -92,60 +92,6 @@ const getPlayList = () => {
 </script>
 <style lang="scss" scoped>
 .main {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  box-sizing: border-box;
-
-  .main_left {
-    width: 300px;
-    height: 100%;
-    display: flex;
-    align-items: center;
-
-    .main_left_nav {
-      width: 100%;
-      height: 645px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-around;
-      align-items: center;
-
-      .li {
-        width: 100%;
-        height: 50px;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        align-items: center;
-        @include bbl;
-        backdrop-filter: blur(10px);
-        border-radius: 6px;
-        transition: transform 1s cubic-bezier(0.06, 0.64, 1, 0.24);
-
-        .icon {
-          font-size: 27px;
-        }
-
-        .name {
-          width: 80px;
-          text-align: left;
-          font-size: 18px;
-        }
-
-        &:hover {
-          transform: scale(1.02);
-          transition: 0.5s;
-          @include bbl;
-        }
-      }
-    }
-  }
-
   .main_right {
     width: 1400px;
     height: 1080px;

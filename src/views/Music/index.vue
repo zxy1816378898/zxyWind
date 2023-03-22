@@ -47,30 +47,52 @@
 
       </div>
       <!-- 新碟上架 -->
-      <div class="main_right_new_grounding"></div>
-      <!-- 最新MV -->
-      <div class="main_right_new_mv"></div>
-      <!-- 底部 -->
-      <div class="main_right_bottom">
-        <!-- 热门电台 -->
-        <div class="main_right_hot_station"></div>
-        <!-- 热门歌手 -->
-        <div class="main_right_hot_singer"></div>
+      <div class="main_right_new_grounding">
+
+        <div class="main_right_new_grounding_title">新碟上架
+          <h2>全部</h2>
+          <h2>华语</h2>
+          <h2>欧美</h2>
+          <h2>韩国</h2>
+          <h2>日本</h2>
+        </div>
+
+        <div class="main_right_new_grounding_box">
+
+          <div class="main_right_new_grounding_li" v-for="item in main_right_new_grounding_liAyy">
+
+            <img class="img" :src="`${item.blurPicUrl}`" />
+
+            <div class="lable">
+
+              <div class="name">{{ item.name }}</div>
+
+              <div class="company">{{ item.company }}</div>
+
+            </div>
+
+
+          </div>
+
+        </div>
+
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { getBanner, playList } from '@/api/http.js';
+import { getBanner, playList, topAlbum } from '@/api/http.js';
 const input = ref('');
 const playCount_W = ref('')
 const hot_recommend_liAyy = ref([]) // 热门歌单
 const main_right_banner_Ayy = ref([{}]) //轮播图详情
+const main_right_new_grounding_liAyy = ref([{}]) //新碟上架详情
 
 onMounted(() => {
   Banner();// 轮播图
   getPlayList();//热门歌单
+  getTopAlbum();//新碟上架
 })
 
 const Banner = () => {
@@ -88,6 +110,11 @@ const getPlayList = () => {
   });
 };
 
+const getTopAlbum = () => {
+  topAlbum({}).then((res) => {
+    main_right_new_grounding_liAyy.value = res.data.weekData.splice(0, 9)
+  });
+};
 
 </script>
 <style lang="scss" scoped>
@@ -113,11 +140,13 @@ const getPlayList = () => {
     .main_right_banner {
       width: 100%;
       height: 230px;
+      @include bbl;
 
       :deep(.el-carousel__container) {
         width: 92%;
         height: 230px;
-        margin: 0 4%;
+        margin: 1% 4% 0 4%;
+
       }
 
       :deep(.el-carousel__mask) {
@@ -133,10 +162,12 @@ const getPlayList = () => {
 
     .main_right_hot_recommend {
       width: 100%;
-      height: 420px;
+      height: 405px;
       display: flex;
       flex-direction: column;
-      justify-content: space-around;
+      justify-content: space-between;
+      position: relative;
+      top: 30px;
 
       .main_right_hot_recommend_title {
         width: 35%;
@@ -210,7 +241,7 @@ const getPlayList = () => {
           }
 
           .mini_lable {
-            width: 100px;
+            width: 110px;
             position: absolute;
             top: 25px;
             right: 30px;
@@ -232,38 +263,108 @@ const getPlayList = () => {
 
     .main_right_new_grounding {
       width: 100%;
-      height: 530px;
-
-    }
-
-    .main_right_new_mv {
-      width: 100%;
-      height: 540px;
-      border: 1px solid red;
-    }
-
-    .main_right_bottom {
-      width: 100%;
-      height: 520px;
+      height: 480px;
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
       justify-content: space-between;
-      align-items: center;
-      border: 1px solid red;
+      position: relative;
+      top: 50px;
 
-      .main_right_hot_station {
-        width: 1100px;
-        height: 100%;
-        border: 1px solid red;
+      .main_right_new_grounding_title {
+        width: 35%;
+        height: 50px;
+        font-size: 28px;
+        font-weight: 700;
+        line-height: 50px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        color: aliceblue;
+
+        h2 {
+          font-weight: 500;
+          font-size: 18px;
+        }
+
+        h2:hover {
+          color: #0FF;
+        }
       }
 
-      .main_right_hot_singer {
-        width: 490px;
-        height: 100%;
-        border: 1px solid red;
+      .main_right_new_grounding_box {
+        width: 100%;
+        height: 420px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+
+        .main_right_new_grounding_li {
+          width: 380px;
+          height: 120px;
+          @include bbl;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+
+          img {
+            width: 100px;
+            height: 100px;
+            position: relative;
+            border-radius: 8px;
+            left: 5%;
+          }
+
+          &::after {
+            display: inline-block;
+            content: '';
+            position: absolute;
+            top: 10px;
+            right: 25px;
+            width: 83%;
+            height: 83%;
+            background: url(../../assets/images/vinyl_record.png) no-repeat;
+            background-size: contain;
+            transition: all .4s linear;
+            z-index: -1;
+          }
+
+          .lable {
+            width: 200px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            left: 20%;
+            font-size: 18px;
+
+            .name {
+              width: 200px;
+              height: 23%;
+              text-align: left;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              display: -webkit-box;
+              -webkit-line-clamp: 2;
+              -webkit-box-orient: vertical;
+              word-break: break-all;
+              color: #fff;
+            }
+
+            .company {
+              @extend .name;
+              color: rgb(208, 212, 195);
+            }
+          }
+
+
+        }
       }
+
     }
-
   }
 }
 </style>

@@ -192,7 +192,7 @@ const wzlbAyy = ref([
     .message {
       width: 100%;
       height: 120px;
-      margin-top: 80px;
+      margin-top: 55px;
 
       .contont {
         width: 480px;

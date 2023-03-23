@@ -1,94 +1,81 @@
 <template>
-  <!-- 主体 -->
-  <div class="main">
-    <!-- 右侧主体 -->
-    <div class="main_right">
-      <!-- 搜索框 -->
-      <div class="main_right_search">
-        <el-input v-model="input" class="w-50 m-2" size="large" placeholder="请输入歌手、歌名、歌词或专辑" />
-      </div>
-      <!-- 轮播图 -->
-      <div class="main_right_banner">
-        <el-carousel :interval="4000" type="card">
-          <el-carousel-item v-for="item in main_right_banner_Ayy" :key="item">
-            <img :src="`${item.imageUrl}`" class="banner_image">
-          </el-carousel-item>
-        </el-carousel>
-      </div>
-      <!-- 热门推荐 -->
-      <div class=" main_right_hot_recommend">
+  <!-- 轮播图 -->
+  <div class="main_right_banner">
+    <el-carousel :interval="4000" type="card">
+      <el-carousel-item v-for="item in main_right_banner_Ayy" :key="item">
+        <img :src="`${item.imageUrl}`" class="banner_image">
+      </el-carousel-item>
+    </el-carousel>
+  </div>
+  <!-- 热门推荐 -->
+  <div class=" main_right_hot_recommend">
 
-        <div class="main_right_hot_recommend_title">热门推荐
-          <h2>华语</h2>
-          <h2>流行</h2>
-          <h2>摇滚</h2>
-          <h2>电子</h2>
-        </div>
-
-        <div class="main_right_hot_recommend_box">
-
-          <div class="main_right_hot_recommend_li" v-for="item in hot_recommend_liAyy">
-
-            <img class="img" :src="`${item.coverImgUrl}`" />
-
-            <div class="text">{{ item.description }}</div>
-
-            <div class="lable">#{{ item.tags[0] }} #{{ item.tags[1] }} #{{ item.tags[2] }}</div>
-
-            <div class="mini_lable">
-              <span class="iconfont icon-erji"></span>
-              {{ playCount_W }}万/{{ item.trackCount }}首
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-      <!-- 新碟上架 -->
-      <div class="main_right_new_grounding">
-
-        <div class="main_right_new_grounding_title">新碟上架
-          <h2>全部</h2>
-          <h2>华语</h2>
-          <h2>欧美</h2>
-          <h2>韩国</h2>
-          <h2>日本</h2>
-        </div>
-
-        <div class="main_right_new_grounding_box">
-
-          <div class="main_right_new_grounding_li" v-for="item in main_right_new_grounding_liAyy">
-
-            <img class="img" :src="`${item.blurPicUrl}`" />
-
-            <div class="lable">
-
-              <div class="name">{{ item.name }}</div>
-
-              <div class="company">{{ item.company }}</div>
-
-            </div>
-
-
-          </div>
-
-        </div>
-
-      </div>
+    <div class="main_right_hot_recommend_title">热门推荐
+      <h2>华语</h2>
+      <h2>流行</h2>
+      <h2>摇滚</h2>
+      <h2>电子</h2>
     </div>
+
+    <div class="main_right_hot_recommend_box">
+
+      <div class="main_right_hot_recommend_li" v-for="item in hot_recommend_liAyy">
+
+        <img class="img" :src="`${item.coverImgUrl}`" />
+
+        <div class="text">{{ item.description }}</div>
+
+        <div class="lable">#{{ item.tags[0] }} #{{ item.tags[1] }} #{{ item.tags[2] }}</div>
+
+        <div class="mini_lable">
+          <span class="iconfont icon-erji"></span>
+          {{ playCount_W }}万/{{ item.trackCount }}首
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+  <!-- 新碟上架 -->
+  <div class="main_right_new_grounding">
+
+    <div class="main_right_new_grounding_title">新碟上架
+      <h2>全部</h2>
+      <h2>华语</h2>
+      <h2>欧美</h2>
+      <h2>韩国</h2>
+      <h2>日本</h2>
+    </div>
+
+    <div class="main_right_new_grounding_box">
+
+      <div class="main_right_new_grounding_li" v-for="item in main_right_new_grounding_liAyy">
+
+        <img class="img" :src="`${item.blurPicUrl}`" />
+
+        <div class="lable">
+
+          <div class="name">{{ item.name }}</div>
+
+          <div class="company">{{ item.company }}</div>
+
+        </div>
+
+
+      </div>
+
+    </div>
+
   </div>
 </template>
 
 <script setup>
 import { getBanner, playList, topAlbum } from '@/api/http.js';
-const input = ref('');
 const playCount_W = ref('')
 const hot_recommend_liAyy = ref([]) // 热门歌单
 const main_right_banner_Ayy = ref([{}]) //轮播图详情
 const main_right_new_grounding_liAyy = ref([{}]) //新碟上架详情
-
 onMounted(() => {
   Banner();// 轮播图
   getPlayList();//热门歌单
@@ -118,24 +105,6 @@ const getTopAlbum = () => {
 
 </script>
 <style lang="scss" scoped>
-.main {
-  .main_right {
-    width: 1400px;
-    height: 1080px;
-    overflow-y: auto;
-
-    .main_right_search {
-      width: 100%;
-      height: 110px;
-
-
-      .el-input {
-        width: 250px;
-        position: relative;
-        left: 1145px;
-        top: 30px;
-      }
-    }
 
     .main_right_banner {
       width: 100%;
@@ -333,17 +302,19 @@ const getTopAlbum = () => {
           .lable {
             width: 200px;
             height: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            word-break: break-all;
             position: relative;
             left: 20%;
             font-size: 18px;
 
             .name {
               width: 200px;
-              height: 23%;
+              height: 40%;
               text-align: left;
               overflow: hidden;
               text-overflow: ellipsis;
@@ -352,6 +323,8 @@ const getTopAlbum = () => {
               -webkit-box-orient: vertical;
               word-break: break-all;
               color: #fff;
+              position: relative;
+              top: 20px;
             }
 
             .company {
@@ -365,6 +338,6 @@ const getTopAlbum = () => {
       }
 
     }
-  }
-}
+  
+
 </style>

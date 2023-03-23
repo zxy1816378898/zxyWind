@@ -20,15 +20,21 @@
     </div>
     <!-- 右侧主体 -->
     <div class="main_right">
-      <section class="main_right_box">
-        <router-view v-slot="{ Component, route }">
-          <transition name="fade-transform" mode="out-in">
-            <div style="width: 100%; height: 100%" :key="route.path">
-              <component :is="Component" :key="route.path" />
-            </div>
-          </transition>
-        </router-view>
-      </section>
+
+      <router-view v-slot="{ Component, route }">
+
+        <div class="main_right_box" :key="route.path">
+          <!-- 搜索框 -->
+          <div class="main_right_search">
+            <el-input v-model="input" class="w-50 m-2" size="large" placeholder="请输入歌手、歌名、歌词或专辑" />
+          </div>
+          <component :is="Component" :key="route.path" />
+
+        </div>
+
+      </router-view>
+
+
     </div>
   </div>
 </template>
@@ -135,13 +141,26 @@ const leftAyy = ref([
   .main_right {
     width: 1400px;
     height: 1080px;
-    overflow-y: auto;
 
     .main_right_box {
       width: 100%;
       height: 100%;
-      z-index: 1;
-      overflow: hidden;
+      overflow-y: auto;
+
+      .main_right_search {
+        width: 100%;
+        height: 110px;
+
+
+        .el-input {
+          width: 250px;
+          position: relative;
+          left: 1145px;
+          top: 30px;
+        }
+      }
+
+
     }
   }
 }

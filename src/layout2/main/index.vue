@@ -141,6 +141,8 @@ const leftAyy = ref([
   .main_right {
     width: 1400px;
     height: 1080px;
+    position: relative;
+    left: -30px;
 
     .main_right_box {
       width: 100%;

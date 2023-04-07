@@ -20,8 +20,10 @@ const weatherAyy = ref([
 ]);
 
 const getWeather = () => {
-  myaxios.get("https://api.vvhan.com/api/weather").then((res) => {
+  myaxios.get("https://api.vvhan.com/api/weather?city=淮安").then((res) => {
+    //此处地址暂时写死，后死更换
     const { data } = res;
+
     let newData = [
       {
         city: data.city,
@@ -38,6 +40,7 @@ getWeather();
 <style lang="scss" scoped>
 .weather {
   font-size: 1rem;
+
   .item {
     display: flex;
     flex-direction: row;

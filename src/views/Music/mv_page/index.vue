@@ -1,7 +1,31 @@
 <template>
     <div class="main">
 
-        <div class="left_aside">
+        <div class="top_aside">
+            <div class="title_box">
+                <div class="title">排序</div>
+                <div class="mini_title"><span>上升最快</span><span>最新</span></div>
+                <div class="title">区域</div>
+                <div class="mini_title">
+                    <span>全部</span>
+                    <span>内地</span>
+                    <span>港台</span>
+                    <span>欧美</span>
+                    <span>日本</span>
+                    <span>韩国</span>
+                </div>
+                <div class="title">类型</div>
+                <div class="mini_title">
+                    <span>全部</span>
+                    <span>原生</span>
+                    <span>现场版</span>
+                    <span>官方版</span>
+                    <span>网易出品</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="bot_aside">
 
             <div class="li" v-for="item in mv_listAyy">
 
@@ -12,16 +36,17 @@
 
                     <div class="artistName">{{ item.artistName }}</div>
 
-                    <div class="playCount">{{ playCount_W }}万</div>
+                    <div class="playCount">
+                        <span class="iconfont icon-record-video-full"></span>
+                        {{ playCount_W }}万
+                    </div>
                 </div>
 
             </div>
 
         </div>
 
-        <div class="right_aside">
 
-        </div>
     </div>
 </template>
 <script setup>
@@ -36,9 +61,9 @@ onMounted(() => {
 const getMv = () => {
     mv({}).then((res) => {
         mv_listAyy.value = res.data.data;
+        console.log(mv_listAyy.value);
         for (let i = 0; i < res.data.data.length; i++) {
             playCount_W.value = (res.data.data[i].playCount / 10000).toFixed(1);
-            console.log(playCount_W.value);
         }
     });
 };
@@ -48,14 +73,44 @@ const getMv = () => {
     width: 100%;
     height: 100%;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     overflow-y: auto;
 }
 
-.left_aside {
-    width: 80%;
-    height: 100%;
-    border: 1px solid red;
+.top_aside {
+    width: 100%;
+    height: 22%;
+    margin-bottom: 50px;
+    .title_box {
+        width: 100%;
+        height: 260px;
+        @include bbl;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+
+        .title {
+            width: 100%;
+            height: auto;
+            font-size: 23px;
+            padding-left: 20px;
+        }
+
+        .mini_title {
+            width: 100%;
+            height: auto;
+            font-size: 20px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+        }
+    }
+}
+
+.bot_aside {
+    width: 100%;
+    height: 80%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -63,7 +118,7 @@ const getMv = () => {
     align-items: center;
 
     .li {
-        width: 190px;
+        width: 200px;
         height: 200px;
         display: flex;
         flex-direction: column;
@@ -75,7 +130,7 @@ const getMv = () => {
             width: 180px;
             height: 110px;
             position: relative;
-            padding-left: 5px;
+            padding-left: 10px;
             padding-top: 5px;
         }
 
@@ -107,11 +162,5 @@ const getMv = () => {
 
 
     }
-}
-
-.right_aside {
-    width: 20%;
-    height: 100%;
-    border: 1px solid red;
 }
 </style>

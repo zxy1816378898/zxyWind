@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "18170123",
+      "name": "视频摄像机,录像机",
+      "font_class": "record-video-full",
+      "unicode": "e96a",
+      "unicode_decimal": 59754
+    },
+    {
+      "icon_id": "13186579",
+      "name": "MV",
+      "font_class": "MV1",
+      "unicode": "e602",
+      "unicode_decimal": 58882
+    },
+    {
       "icon_id": "3376907",
       "name": "耳机",
       "font_class": "erji",

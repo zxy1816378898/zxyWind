@@ -1,3 +1,4 @@
+
 <template>
     <div class="main">
 
@@ -38,7 +39,7 @@
 
                     <div class="playCount">
                         <span class="iconfont icon-record-video-full"></span>
-                        {{ playCount_W }}万
+                        {{ $utils.formartNum(item.playCount) }}
                     </div>
                 </div>
 
@@ -51,7 +52,6 @@
 </template>
 <script setup>
 import { mv } from '@/api/http.js';
-const playCount_W = ref('')
 const mv_listAyy = ref([]);
 
 onMounted(() => {
@@ -61,10 +61,6 @@ onMounted(() => {
 const getMv = () => {
     mv({}).then((res) => {
         mv_listAyy.value = res.data.data;
-        console.log(mv_listAyy.value);
-        for (let i = 0; i < res.data.data.length; i++) {
-            playCount_W.value = (res.data.data[i].playCount / 10000).toFixed(1);
-        }
     });
 };
 </script>
@@ -79,31 +75,36 @@ const getMv = () => {
 
 .top_aside {
     width: 100%;
-    height: 22%;
-    margin-bottom: 50px;
+    height: 260px;
+
     .title_box {
         width: 100%;
         height: 260px;
         @include bbl;
         display: flex;
         flex-direction: column;
-        align-items: center;
-        justify-content: space-around;
 
         .title {
             width: 100%;
-            height: auto;
+            height: 20%;
+            line-height: 180%;
             font-size: 23px;
-            padding-left: 20px;
+            margin-left: 20px;
         }
 
         .mini_title {
             width: 100%;
-            height: auto;
+            height: 20%;
+            line-height: 180%;
             font-size: 20px;
             display: flex;
             flex-direction: row;
-            justify-content: space-around;
+
+            & span {
+                margin: 0 20px;
+            }
+
+            // justify-content: space-around;
         }
     }
 }

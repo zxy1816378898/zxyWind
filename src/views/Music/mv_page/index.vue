@@ -1,32 +1,8 @@
-
 <template>
     <div class="main">
 
-        <div class="top_aside">
-            <div class="title_box">
-                <div class="title">排序</div>
-                <div class="mini_title"><span>上升最快</span><span>最新</span></div>
-                <div class="title">区域</div>
-                <div class="mini_title">
-                    <span>全部</span>
-                    <span>内地</span>
-                    <span>港台</span>
-                    <span>欧美</span>
-                    <span>日本</span>
-                    <span>韩国</span>
-                </div>
-                <div class="title">类型</div>
-                <div class="mini_title">
-                    <span>全部</span>
-                    <span>原生</span>
-                    <span>现场版</span>
-                    <span>官方版</span>
-                    <span>网易出品</span>
-                </div>
-            </div>
-        </div>
 
-        <div class="bot_aside">
+        <div class="left_aside">
 
             <div class="li" v-for="item in mv_listAyy">
 
@@ -47,13 +23,104 @@
 
         </div>
 
+        <div class="right_aside">
+            <div class="title_box">
+                <div class="title">排序</div>
+                <div class="mini_title mini_1">
+                    <span v-for="item in titleAyy" :class="'isActive-' + item.code" @click="openPop(item)">
+                        {{ item.title }} </span>
+                </div>
+                <div class="title">区域</div>
+                <div class="mini_title">
+                    <span v-for="item in titleAyy2" :class="'isActive-' + item.code" @click="openPop2(item)">
+                        {{ item.title }} </span>
+                </div>
+                <div class="title">类型</div>
+                <div class="mini_title">
+                    <span v-for="item in titleAyy3" :class="'isActive-' + item.code" @click="openPop3(item)">
+                        {{ item.title }} </span>
+                </div>
+            </div>
+        </div>
 
     </div>
 </template>
 <script setup>
 import { mv } from '@/api/http.js';
 const mv_listAyy = ref([]);
-
+const titleAyy = ref([
+    {
+        title: '上升最快',
+        code: '0'
+    },
+    {
+        title: '最新',
+        code: '1'
+    },
+])
+const titleAyy2 = ref([
+    {
+        title: '全部',
+        code: '0'
+    },
+    {
+        title: '内地',
+        code: '1'
+    },
+    {
+        title: '港台',
+        code: '1'
+    },
+    {
+        title: '欧美',
+        code: '1'
+    },
+    {
+        title: '韩国',
+        code: '1'
+    },
+    {
+        title: '日本',
+        code: '1'
+    },
+])
+const titleAyy3 = ref([
+    {
+        title: '全部',
+        code: '0'
+    },
+    {
+        title: '原生',
+        code: '1'
+    },
+    {
+        title: '现场版',
+        code: '1'
+    },
+    {
+        title: '网易出品',
+        code: '1'
+    },
+])
+// 点击事件
+const openPop = (a) => {
+    titleAyy.value.forEach((e) => {
+        e.code = 1;
+    });
+    a.code = 0;
+};
+const openPop2 = (a) => {
+    titleAyy2.value.forEach((e) => {
+        e.code = 1;
+    });
+    a.code = 0;
+};
+const openPop3 = (a) => {
+    titleAyy3.value.forEach((e) => {
+        e.code = 1;
+    });
+    a.code = 0;
+};
 onMounted(() => {
     getMv();
 })
@@ -69,49 +136,14 @@ const getMv = () => {
     width: 100%;
     height: 100%;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-between;
     overflow-y: auto;
 }
 
-.top_aside {
-    width: 100%;
-    height: 260px;
-
-    .title_box {
-        width: 100%;
-        height: 260px;
-        @include bbl;
-        display: flex;
-        flex-direction: column;
-
-        .title {
-            width: 100%;
-            height: 20%;
-            line-height: 180%;
-            font-size: 23px;
-            margin-left: 20px;
-        }
-
-        .mini_title {
-            width: 100%;
-            height: 20%;
-            line-height: 180%;
-            font-size: 20px;
-            display: flex;
-            flex-direction: row;
-
-            & span {
-                margin: 0 20px;
-            }
-
-            // justify-content: space-around;
-        }
-    }
-}
-
-.bot_aside {
-    width: 100%;
-    height: 80%;
+.left_aside {
+    width: 72%;
+    height: 100%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -162,6 +194,58 @@ const getMv = () => {
         }
 
 
+    }
+}
+
+.right_aside {
+    width: 25%;
+    height: 260px;
+    margin: 15px 0;
+
+    .title_box {
+        width: 100%;
+        height: 260px;
+        @include bbl;
+        display: flex;
+        flex-direction: column;
+
+        .title {
+            width: 90%;
+            height: 20%;
+            font-size: 23px;
+            margin-left: 20px;
+            margin-top: 10px;
+            font-weight: 600;
+        }
+
+        .mini_title {
+            width: 90%;
+            height: 20%;
+            font-size: 18px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            margin-left: 22px;
+     
+            & span{
+                position: relative;
+            }
+
+            .isActive-0::after {
+                position: absolute;
+                content: "";
+                left: 0px;
+                top: 14px;
+                width: 100%;
+                height: 7px;
+                background: #ff641e;
+                z-index: -2;
+            }
+        }
+
+        .mini_1 {
+            width: 35%;
+        }
     }
 }
 </style>

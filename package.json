@@ -2,10 +2,12 @@
   "name": "zxyWind",
   "private": true,
   "version": "1.0.0",
+  "homepage": "https://[zxy1816378898].github.io/[zxyWind]",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@amap/amap-jsapi-loader": "^1.0.1",
@@ -25,6 +27,7 @@
   "devDependencies": {
     "@vitejs/plugin-vue": "^3.1.0",
     "cross-env": "^7.0.3",
+    "gh-pages": "^5.0.0",
     "postcss-px-to-viewport": "^1.1.1",
     "vite": "^3.1.0"
   }

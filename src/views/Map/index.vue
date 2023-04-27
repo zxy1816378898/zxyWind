@@ -24,7 +24,7 @@
     <!-- 搜索框 -->
     <div class="search" @click="inputClick">
       <input id="tipinput" :value="inputSearchVal" type="text">
-      <span class="iconfont icon-a-ziyuan290 searchIMG"></span>
+      <span class="iconfont icon-a-ziyuan290 "></span>
     </div>
   </div>
 </template>
@@ -32,7 +32,7 @@
 <script setup>
 import htbutt from "@/components/button";
 import AMapLoader from '@amap/amap-jsapi-loader';
-import searchIMG from '@/assets/images/home/search.png'
+
 import { shallowRef } from '@vue/reactivity';
 const map = shallowRef(null);
 const inputSearchVal = ref('');

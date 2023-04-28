@@ -1,10 +1,10 @@
-import { createRouter, createWebHistory } from "vue-router"; // router.js
-const routerHistory = createWebHistory(); // 开启历史模式
+import { createRouter, createWebHistory ,createWebHashHistory} from "vue-router"; // router.js
+// const routerHistory = createWebHistory(); // 开启历史模式
 import Layout from "@/layout";
 import Layout2 from "@/layout2";
 
 const router = createRouter({
-  history: routerHistory,
+  history: createWebHashHistory(),
   routes: [
     {
       path: "/",

@@ -31,9 +31,9 @@ export default defineConfig({
     },
   },
 
-  base: "/",
-  publicDir: "public",
-  publicPath: "/dist",
+  base: "./",
+  // publicDir: "public",
+  // publicPath: "/dist",
   css: {
     preprocessorOptions: {
       scss: {

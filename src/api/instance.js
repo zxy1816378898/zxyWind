@@ -9,7 +9,9 @@ const instance = axios.create({
   validateStatus: (status) => {
     return status >= 200 && status < 300; // default
   },
-  baseURL: "http://localhost:3000", // 服务端域名
+ // baseURL: "http://localhost:3000", // 服务端域名
+    baseURL: " https://netease-cloud-music-kbmpmjtml-zxy1816378898.vercel.app/",//部署在vercel
+
 });
 
 // 添加请求拦截器

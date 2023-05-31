@@ -9,8 +9,8 @@ const instance = axios.create({
   validateStatus: (status) => {
     return status >= 200 && status < 300; // default
   },
- // baseURL: "http://localhost:3000", // 服务端域名
-  //  baseURL: "https://netease-cloud-music-api-tau-orcin.vercel.app",//部署在vercel
+  //baseURL: import.meta.env.VITE_APP_BASE_API, // 服务端域名
+   //baseURL: "https://netease-cloud-music-api-tau-orcin.vercel.app",//部署在vercel
 
 });
 
@@ -42,6 +42,7 @@ const ajaxMethod = ["get", "post"];
 const api = {};
 ajaxMethod.forEach((method) => {
   api[method] = function (uri, data, config) {
+    console.log(uri);
     return new Promise(function (resolve, reject) {
       instance[method](uri, data, config)
         .then((response) => {

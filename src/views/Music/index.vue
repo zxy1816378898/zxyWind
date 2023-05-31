@@ -136,6 +136,7 @@ onMounted(() => {
 
 const Banner = () => {
   getBanner({}).then((res) => {
+    console.log('---------------------',res);
     main_right_banner_Ayy.value = res.data.banners
   });
 };

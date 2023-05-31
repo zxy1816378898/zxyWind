@@ -27,6 +27,7 @@ export default defineConfig({
       "/dev-api": {
         changeOrigin: true,
         target: "https://netease-cloud-music-api-tau-orcin.vercel.app",
+        rewrite: (p) => p.replace(/^\/dev-api/, ''),
       },
     },
   },

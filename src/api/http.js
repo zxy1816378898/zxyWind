@@ -1,7 +1,9 @@
 import api from "./instance";
+
+console.log(api);
 // 首页轮播图
 const getBanner = () => {
-  return api.get("/banner", {});
+  return api.get("https://netease-cloud-music-api-tau-orcin.vercel.app/banner", {});
 };
 // 搜索
 const search = ({ keywords = "" }) => {

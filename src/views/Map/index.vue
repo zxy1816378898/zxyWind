@@ -33,8 +33,8 @@
 import htbutt from "@/components/button";
 import AMapLoader from '@amap/amap-jsapi-loader';
 
-import { shallowRef } from '@vue/reactivity';
-const map = shallowRef(null);
+
+const map = ref(null);
 const inputSearchVal = ref('');
 const forecast = ref('')
 const dayTemp = ref('')

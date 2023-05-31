@@ -26,7 +26,7 @@ export default defineConfig({
     proxy: {
       "/dev-api": {
         changeOrigin: true,
-        target: "https://netease-cloud-music-api-tau-orcin.vercel.app",
+        target: "http://localhost:3000",
       },
     },
   },

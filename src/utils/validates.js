@@ -59,37 +59,7 @@ export const getValue = (value, arr, params = 'params', key = 'key') => {
   return option[params];
 };
 
-/** 根据区划代码返回对应的区划名称 */
-export const getQhmcByDm = (qhdm) => {
-  let qhmc = '';
-  if (qhdm == '080000') {
-    qhmc = '淮安市';
-  } else if (qhdm == '080300') {
-    qhmc = '淮安区';
-  } else if (qhdm == '089100') {
-    qhmc = '清江浦区';
-  } else if (qhdm == '080400') {
-    qhmc = '淮阴区';
-  } else if (qhdm == '080600') {
-    qhmc = '开发区';
-  } else if (qhdm == '080700') {
-    qhmc = '工业园区';
-  } else if (qhdm == '080800') {
-    qhmc = '生态文旅区';
-  } else if (qhdm == '082600') {
-    qhmc = '涟水县';
-  } else if (qhdm == '082600') {
-    qhmc = '涟水县';
-  } else if (qhdm == '082900') {
-    qhmc = '洪泽区';
-  } else if (qhdm == '083000') {
-    qhmc = '盱眙县';
-  } else if (qhdm == '083100') {
-    qhmc = '金湖县';
-  }
 
-  return qhmc;
-};
 
 //默认查询开始时间 当年的1.1
 export function getYearFirstDay() {

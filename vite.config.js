@@ -17,7 +17,7 @@ export default defineConfig({
     },
   },
 
-  
+
   server: {
     port: 97,
     host: true,
@@ -36,11 +36,12 @@ export default defineConfig({
   // publicDir: "public",
   // publicPath: "/dist",
   css: {
+    //引入scss
     preprocessorOptions: {
       scss: {
         additionalData: '@import "@/assets/style/_mixin.scss";',
       },
     },
-    
+
   },
 });

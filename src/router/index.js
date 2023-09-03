@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory ,createWebHashHistory} from "vue-router"; // router.js
+import { createRouter, createWebHistory, createWebHashHistory } from "vue-router"; // router.js
 // const routerHistory = createWebHistory(); // 开启历史模式
 import Layout from "@/layout";
 import Layout2 from "@/layout2";
@@ -126,6 +126,30 @@ const router = createRouter({
         },
       ],
     },
+    // 地图
+    {
+      path: "/home",
+      component: Layout,
+      redirect: "Map",
+      children: [
+        {
+          path: "/Map",
+          name: "Map",
+          component: () => import("@/views/Map/"),
+        },
+        {
+          path: "/EchartsMap",
+          name: "下钻地图",
+          component: () => import("@/views/Map/EchartsMap/index.vue"),
+        },
+        {
+          path: "/GeneralMap",
+          name: "普通地图",
+          component: () => import("@/views/Map/GeneralMap/index.vue"),
+        },
+      ],
+    },
+
   ],
 });
 

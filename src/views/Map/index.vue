@@ -1,330 +1,375 @@
 <template>
-  <div class="main-box">
-    <!-- 地图 -->
-    <div id="container"></div>
-    <!-- 回退按钮 -->
-    <htbutt></htbutt>
-    <!-- 流光盒子 -->
-    <div class="box">
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
-    <!-- 天气 -->
-    <div class="weather">
-      <div class="bigBox">
-        <div class="city">{{ city }}</div>
-        <div class="clear ">
-          <div class="forecast">{{ forecast }}</div>
-          <div class="temperature">{{ nightTemp }}~{{ dayTemp }}℃</div>
+  <htbutt></htbutt>
+  <div class="box">
+    <div class="li" v-for="item in MapAyy" @click="openPop(item)">
+      <div class="button button--bird">
+        <div class="button__wrapper">
+          <span class="button__text">{{ item.name }}</span>
+        </div>
+
+        <div class="birdBox">
+          <div class="bird wakeup">
+            <div class="bird__face"></div>
+          </div>
+          <div class="bird wakeup">
+            <div class="bird__face"></div>
+          </div>
+          <div class="bird">
+            <div class="bird__face"></div>
+          </div>
         </div>
       </div>
     </div>
-    <!-- 搜索框 -->
-    <div class="search" @click="inputClick">
-      <input id="tipinput" :value="inputSearchVal" type="text">
-      <span class="iconfont icon-a-ziyuan290 "></span>
-    </div>
   </div>
 </template>
-    
+
 <script setup>
-import htbutt from "@/components/button";
-import AMapLoader from '@amap/amap-jsapi-loader';
+import htbutt from '@/components/button';
+const router = useRouter();
 
-
-const map = ref(null);
-const inputSearchVal = ref('');
-const forecast = ref('')
-const dayTemp = ref('')
-const nightTemp = ref('')
-const city = ref('')
-
-const getlocalcity = ref('')
-/**初始化 */
-const initMap = () => {
-  window._AMapSecurityConfig = {
-    securityJsCode: '70ad83856e431e14d13ce6124ff5f117',
-  };
-  AMapLoader.load({
-    key: '38fd1ab532e5a8c3a0da71b76e67c78e',
-    version: '2.0',
-    plugins: [
-      'AMap.ToolBar',//工具条，控制地图的缩放、平移等
-      'AMap.Driving',//驾车路线规划服务，提供按照起、终点进行驾车路线的功能
-      'AMap.ControlBar',//组合了旋转、倾斜、复位在内的地图控件。
-      'AMap.PlaceSearch',//地点搜索服务，提供了关键字搜索、周边搜索、范围内搜索等功能
-      'AMap.AutoComplete',//输入提示，提供了根据关键字获得提示信息的功能
-      'AMap.Geolocation',//定位，提供了获取用户当前准确位置、所在城市的方法
-      'AMap.AdvancedInfoWindow',//高级信息窗体，整合了周边搜索、路线规划功能
-      'AMap.Weather',//天气预报插件，用于获取未来的天气信息
-      'AMap.CitySearch',//根据IP返回对应城市信息
-    ]
-  })
-    .then((AMap) => {
-      map.value = new AMap.Map('container', {     //设置地图容器id
-        pitch: 5,// 地图俯仰角度，有效范围 0 度- 83 度
-        viewMode: '3D', //是否为3D地图模式
-        terrain: true,// 开启地形图
-        pitch: 50, // 地图俯仰角度，有效范围 0 度- 83 度
-        zoom: 18, //初始化地图级别
-        mapStyle: 'amap://styles/normal',
-        buildingAnimation: true,  // 楼快出现是否动画
-        resizeEnable: false,  // 是否启用大小调整
-        rotateEnable: false, // 是否启用旋转
-        pitchEnable: true,    // 是否启用倾斜
-        expandZoomRange: false,  // 扩大收缩范围
-        resizeEnable: true
-      })
-      getlocalcity.value = new AMap.CitySearch();
-      addselect(AMap)
-      addlocalCity(getlocalcity.value)
-    })
-    .catch((e) => {
-      console.log(e);
-    });
+const MapAyy = ref([
+  {
+    name: '普通地图',
+    url: '/GeneralMap',
+  },
+  {
+    name: '下钻地图',
+    url: '/EchartsMap',
+  },
+]);
+// 点击事件
+const openPop = (a) => {
+  router.push({
+    path: `${a.url}`,
+  });
 };
-
-//输入提示
-const addselect = (AMap) => {
-  let autoOptions = { input: "tipinput" };
-  let auto = new AMap.AutoComplete(autoOptions);
-  let placeSearch = new AMap.PlaceSearch({
-    map: map.value
-  });  //构造地点查询类
-  auto.on("select", select);//注册监听，当选中某条记录时会触发
-  function select(e) {
-    placeSearch.setCity(e.poi.adcode);
-    placeSearch.search(e.poi.name);  //关键字查询查询
-  }
-}
-//天气
-const addweather = (AMap) => {
-  let weather = new AMap.Weather();
-  weather.getForecast(city.value, function (err, data) {
-    if (!err) {
-      forecast.value = data.forecasts[0].dayWeather;
-      dayTemp.value = data.forecasts[0].dayTemp;
-      nightTemp.value = data.forecasts[0].nightTemp;
-    }
-  })
-}
-//定位当前城市
-const addlocalCity = (getlocalcity) => {
-  getlocalcity.getLocalCity(function (status, result) {
-    city.value = result.city;
-  })
-}
-// 延迟执行
-setTimeout(() => {
-  addweather(AMap)
-}, 1000)
-
-onMounted(() => {
-  initMap();
-});
-
 </script>
-    
+
 <style lang="scss" scoped>
-.main-box {
-  width: 100%;
-  color: #fff;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  height: 100vh;
-}
-
-#container {
-  padding: 0px;
-  margin: 0px;
-  width: 100%;
-  height: 100vh;
-
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
 .box {
-  position: absolute;
-  width: 300px;
-  height: 50px;
-  right: 50px;
-  top: 40px;
-  background-color: transparent;
-  /* 文字居中 */
-  text-align: center;
-  overflow: hidden;
-}
-
-.box :nth-of-type(1) {
-  background: linear-gradient(to right, transparent, #0FF);
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
-  height: 1px;
-  animation: run1 1s linear infinite;
-}
-
-.box :nth-of-type(2) {
-  position: absolute;
-  background: linear-gradient(to bottom, transparent, #0FF);
-  top: 0;
-  right: 0;
-  width: 1px;
   height: 100%;
-  animation: run2 1s linear infinite;
-  animation-delay: .5s;
-}
-
-.box :nth-of-type(3) {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 1px;
-  background: linear-gradient(to left, transparent, #0FF);
-  animation: run3 1s linear infinite;
-  animation-delay: 1s;
-}
-
-.box :nth-of-type(4) {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 1px;
-  height: 100%;
-  background: linear-gradient(to top, transparent, #0FF);
-  animation: run4 1s linear infinite;
-  animation-delay: 1.5s;
-}
-
-@keyframes run1 {
-  0% {
-    transform: translateX(-200px);
-  }
-
-  100% {
-    transform: translateX(200px);
-  }
-}
-
-@keyframes run2 {
-  0% {
-    transform: translateY(-40px);
-  }
-
-  100% {
-    transform: translateY(40px);
-  }
-}
-
-@keyframes run3 {
-  0% {
-    transform: translateX(200px);
-  }
-
-  100% {
-    transform: translateX(-200px);
-  }
-}
-
-@keyframes run4 {
-  0% {
-    transform: translateY(40px);
-  }
-
-  100% {
-    transform: translateY(-40px);
-  }
-
-}
-
-.weather {
-  width: 150px;
-  height: 50px;
-  position: absolute;
-  right: 360px;
-  top: 40px;
-  text-align: center;
-  line-height: 20px;
-  color: #7fffd4;
-  font-size: 18px;
-
-  .bigBox {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-
-    .city {
-      width: 50%;
-      height: 100%;
+  @include d-j-a-f(center, center, row);
+  .li {
+    width: 300px;
+    .button--bird {
+      --main_color: #f4cf47;
+      --sub_color1: #f4e19c;
+      --sub_color2: #ff8108;
+      --base_color: #000;
+      --border_radius1: 60px 60px 40px 40px / 48px 48px 30px 30px;
+      --border_radius2: 70px 70px 40px 40px / 48px 48px 30px 30px;
+      --border_radius3: 40px 40px 40px 40px / 48px 48px 30px 30px;
+    }
+    .button {
       display: flex;
+      justify-content: center;
       align-items: center;
-      justify-content: center
+
+      box-sizing: border-box;
+      width: 280px;
+      height: 80px;
+
+      text-decoration: none;
+      border: solid 3px #000;
+      border-radius: 40px;
+      background: var(--main_color);
+      position: relative;
     }
 
-    .clear {
-      @extend .city;
+    .button__wrapper {
       display: flex;
-      flex-direction: column;
+      justify-content: center;
+      align-items: center;
 
-      .forecast {
-        width: 100%;
-        height: 50%;
+      width: 100%;
+      height: 100%;
+
+      border-radius: 40px;
+
+      overflow: hidden;
+      position: relative;
+    }
+    .button__text {
+      position: relative;
+      font-size: 32px;
+      letter-spacing: 4px;
+      color: var(--base_color);
+      transition: all 0.3s ease;
+    }
+
+    //黑色小箭头 暂时注释
+    //   .button::before {
+    //     content: '';
+    //     position: absolute;
+
+    //     right: 20px;
+    //     margin: auto 0;
+    //     width: 24px;
+    //     height: 24px;
+    //     background: var(--base_color);
+    //     clip-path: path(
+    //       'M24,12.02c0-1.09-.75-1.71-.81-1.77L11.17,.45c-.91-.74-2.21-.56-2.91,.42-.69,.97-.52,2.37,.39,3.11l7.12,5.81-13.7-.02h0C.93,9.77,0,10.76,0,11.99c0,1.23,.93,2.22,2.07,2.22l13.7,.02-7.13,5.78c-.91,.74-1.09,2.13-.4,3.11,.41,.58,1.03,.88,1.65,.88,.44,0,.88-.15,1.25-.45l12.04-9.76c.07-.06,.82-.67,.82-1.77Z'
+    //     );
+    //     transition: all ease 0.2s;
+    //   }
+    .button--bird .button__wrapper::before,
+    .button--bird .button__wrapper::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      width: 130px;
+      height: 38px;
+      background: var(--sub_color1);
+      transition: all 0.5s ease;
+      clip-path: path(
+        'M13.77,37.35L.25,16.6c-.87-1.33,.69-2.91,2-2.02l12.67,8.59c.81,.55,1.91,.14,2.18-.81l2.62-9.33c.39-1.4,2.34-1.42,2.76-.02l3.6,11.99c.33,1.11,1.74,1.4,2.47,.52L49.38,.52c.87-1.04,2.53-.42,2.53,.95V23.7c0,1.13,1.2,1.83,2.16,1.26l12.75-7.51c.85-.5,1.94,0,2.13,.98l1.5,7.6c.2,1.03,1.37,1.51,2.22,.92l17.74-12.3c1.09-.75,2.52,.25,2.21,1.55l-2.44,10.2c-.26,1.09,.74,2.06,1.8,1.75l30.8-9.04c1.37-.4,2.42,1.26,1.49,2.36l-9.07,10.66c-.83,.98-.1,2.49,1.17,2.42l12.12-.68c1.6-.09,2.12,2.15,.65,2.8l-2.73,1.21c-.18,.08-.38,.12-.58,.12H14.97c-.48,0-.93-.25-1.2-.65Z'
+      );
+    }
+    .button--bird .button__wrapper::before {
+      left: 0;
+    }
+    .button--bird .button__wrapper::after {
+      right: 0;
+      transform: rotateY(180deg);
+    }
+
+    .button:hover .button__wrapper::before {
+      transform: translateX(-12px);
+    }
+    .button:hover .button__wrapper::after {
+      transform: rotateY(180deg) translateX(-12px);
+    }
+    .button:hover .button__text {
+      letter-spacing: 6px;
+    }
+    .button:hover::before {
+      right: 14px;
+    }
+
+    .birdBox {
+      position: absolute;
+      top: -54px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      width: 180px;
+      height: 56px;
+    }
+
+    .bird {
+      position: relative;
+      width: 56px;
+      height: 36px;
+      box-sizing: border-box;
+      border: solid 3px #000;
+      background: var(--main_color);
+      border-radius: var(--border_radius1);
+      animation: sleep 1s ease infinite alternate;
+      display: flex;
+      justify-content: center;
+    }
+    .bird__face {
+      position: absolute;
+      top: 15px;
+      width: 12px;
+      height: 6px;
+      background: var(--sub_color2);
+      border-radius: 50% 50% 50% 50% / 78% 78% 22% 22%;
+      transition: 0.2s;
+    }
+    .bird__face::before,
+    .bird__face::after {
+      content: '';
+      position: absolute;
+      top: -4px;
+      width: 8px;
+      height: 2px;
+      border-radius: 4px;
+      background: #000;
+    }
+    .bird__face::before {
+      left: -5px;
+    }
+    .bird__face::after {
+      right: -5px;
+    }
+    .bird::before {
+      content: '';
+      position: absolute;
+      top: -12px;
+      left: 22px;
+      width: 12px;
+      height: 12px;
+      background: #000;
+      clip-path: path(
+        'M10.23,3.32c-3.54,.63-5.72,2.51-7.02,4.23-.33-1.58-.34-3.54,.93-5.12,.52-.65,.41-1.59-.24-2.11C3.24-.19,2.29-.08,1.77,.57c-3.82,4.77-.31,11.11-.13,11.42,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0-.01-.02,2.49,.04,2.52,0,.1-.14,1.54-4.82,6.59-5.71,.82-.14,1.37-.92,1.22-1.74s-.94-1.36-1.75-1.21Z'
+      );
+    }
+    .button:hover .wakeup {
+      animation: wakeup 0.2s ease;
+      animation-fill-mode: forwards;
+    }
+    .button:hover .wakeup .bird__face {
+      top: 20px;
+    }
+    .button:hover .wakeup .bird__face::before,
+    .button:hover .wakeup .bird__face::after {
+      animation: eye 5s linear infinite;
+    }
+
+    .button:hover .wakeup:nth-child(2) .bird__face::before,
+    .button:hover .wakeup:nth-child(2) .bird__face::after {
+      animation: eye_2 5s linear infinite;
+    }
+
+    @keyframes wakeup {
+      0% {
+        height: 32px;
+        border-radius: var(--border_radius2);
       }
-
-      .temperature {
-        @extend .forecast;
+      100% {
+        height: 56px;
+        border-radius: var(--border_radius3);
       }
     }
-  }
 
+    @keyframes eye {
+      0% {
+        top: -6px;
+        width: 6px;
+        height: 6px;
+      }
+      30% {
+        top: -6px;
+        width: 6px;
+        height: 6px;
+      }
+      32% {
+        top: -4px;
+        width: 8px;
+        height: 2px;
+      }
+      34% {
+        top: -6px;
+        width: 6px;
+        height: 6px;
+      }
+      70% {
+        top: -6px;
+        width: 6px;
+        height: 6px;
+      }
+      72% {
+        top: -4px;
+        width: 8px;
+        height: 2px;
+      }
+      74% {
+        top: -6px;
+        width: 6px;
+        height: 6px;
+      }
+      76% {
+        top: -4px;
+        width: 8px;
+        height: 2px;
+      }
+      78% {
+        top: -6px;
+        width: 6px;
+        height: 6px;
+      }
+      100% {
+        top: -6px;
+        width: 6px;
+        height: 6px;
+      }
+    }
 
-}
-
-.search {
-  position: absolute;
-  width: 300px;
-  height: 50px;
-  right: 50px;
-  top: 40px;
-  display: flex;
-  flex-direction: row;
-  z-index: 99;
-
-  input {
-    border: none;
-    background-color: transparent;
-    width: 260px;
-    height: 50px;
-    right: 50px;
-    top: 40px;
-    font-family: '宋体';
-    color: #7fffd4;
-    overflow: hidden;
-    line-height: 40px;
-    font-size: 28px;
-  }
-
-  .searchIMG {
-    font-size: 45px;
-    color: #7fffd4;
-    position: relative;
-    top: -5px;
-    right: 5px;
-  }
-
-  // 去除input框点击时候的黑线，type是什么类型就去除什么类型
-  input[type=text]:focus {
-    outline: none;
+    @keyframes eye_2 {
+      0% {
+        top: -6px;
+        width: 6px;
+        height: 6px;
+      }
+      10% {
+        transform: translateX(0);
+      }
+      12% {
+        transform: translateX(3px);
+      }
+      20% {
+        top: -6px;
+        width: 6px;
+        height: 6px;
+      }
+      22% {
+        top: -4px;
+        width: 8px;
+        height: 2px;
+      }
+      24% {
+        top: -6px;
+        width: 6px;
+        height: 6px;
+      }
+      25% {
+        transform: translateX(3px);
+      }
+      27% {
+        transform: translateX(0);
+      }
+      74% {
+        top: -6px;
+        width: 6px;
+        height: 6px;
+        transform: translateX(0);
+      }
+      76% {
+        top: -4px;
+        width: 8px;
+        height: 2px;
+        transform: translateX(3px);
+      }
+      78% {
+        top: -6px;
+        width: 6px;
+        height: 6px;
+      }
+      80% {
+        top: -4px;
+        width: 8px;
+        height: 2px;
+      }
+      82% {
+        top: -6px;
+        width: 6px;
+        height: 6px;
+      }
+      85% {
+        transform: translateX(3px);
+      }
+      87% {
+        transform: translateX(0);
+      }
+      100% {
+        top: -6px;
+        width: 6px;
+        height: 6px;
+        transform: translateX(0);
+      }
+    }
+    @keyframes sleep {
+      0% {
+        height: 36px;
+        border-radius: var(--border_radius1);
+      }
+      100% {
+        height: 32px;
+        border-radius: var(--border_radius2);
+      }
+    }
   }
 }
 </style>
-    

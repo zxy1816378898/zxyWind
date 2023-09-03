@@ -3,44 +3,44 @@
   <div class="main">
     <!-- 左侧侧边栏 -->
     <div class="main_left">
-      <htbutt/>
+      <htbutt />
       <!-- 标签 -->
       <div class="main_left_nav">
-
-        <div class="li" v-for="item in leftAyy" :class="'isActive-' + item.code" @click="openPop(item)">
-
+        <div
+          class="li"
+          v-for="item in leftAyy"
+          :class="'isActive-' + item.code"
+          @click="openPop(item)"
+        >
           <span :class="item.icon" class="icon"></span>
 
           <div class="name">{{ item.name }}</div>
-
         </div>
-
       </div>
     </div>
     <!-- 右侧主体 -->
     <div class="main_right">
-
       <router-view v-slot="{ Component, route }">
-
         <div class="main_right_box" :key="route.path">
           <!-- 搜索框 -->
           <div class="main_right_search">
-            <el-input v-model="input" class="w-50 m-2" size="large" placeholder="请输入歌手、歌名、歌词或专辑" />
+            <el-input
+              v-model="input"
+              class="w-50 m-2"
+              size="large"
+              placeholder="请输入歌手、歌名、歌词或专辑"
+            />
           </div>
           <component :is="Component" :key="route.path" />
-
         </div>
-
       </router-view>
-
-
     </div>
   </div>
 </template>
-  
+
 <script setup>
 import { watch } from 'vue';
-import htbutt from "@/components/button";
+import htbutt from '@/components/button';
 const router = useRouter();
 // 点击事件
 const openPop = (a) => {
@@ -53,38 +53,37 @@ const openPop = (a) => {
   });
 };
 
-
-
+//左侧 侧边栏
 const leftAyy = ref([
   {
-    icon: "iconfont icon-shouye",
-    name: "首页",
-    url: "/Music",
-    code: '1'
+    icon: 'iconfont icon-shouye',
+    name: '首页',
+    url: '/Music',
+    code: '1',
   },
   {
-    icon: "iconfont icon-paihangbang",
-    name: "排行榜",
-    url: "/ranking_list",
-    code: '1'
+    icon: 'iconfont icon-paihangbang',
+    name: '排行榜',
+    url: '/ranking_list',
+    code: '1',
   },
   {
-    icon: "iconfont icon-gedan",
-    name: "歌单",
-    url: "/song_sheet",
-    code: '1'
+    icon: 'iconfont icon-gedan',
+    name: '歌单',
+    url: '/song_sheet',
+    code: '1',
   },
   {
-    icon: "iconfont icon-MV",
-    name: "MV",
-    url: "/mv_page",
-    code: '1'
+    icon: 'iconfont icon-MV',
+    name: 'MV',
+    url: '/mv_page',
+    code: '1',
   },
   {
-    icon: "iconfont icon-geshou",
-    name: "歌手",
-    url: "/singer_page",
-    code: '1'
+    icon: 'iconfont icon-geshou',
+    name: '歌手',
+    url: '/singer_page',
+    code: '1',
   },
   // {
   //   icon: "iconfont icon-wodeyinle",
@@ -92,22 +91,22 @@ const leftAyy = ref([
   //   url: "my_music",
   //   code: '1'
   // },
-])  //左侧 侧边栏
+]);
 
 watch(
   () => router.currentRoute.value,
-  (n) => { 
+  (n) => {
     console.log(n);
-    leftAyy.value.forEach(i=>{
-      if(i.url==n.path){
+    leftAyy.value.forEach((i) => {
+      if (i.url == n.path) {
         i.code = 0;
       }
-    })
+    });
   },
   {
-    immediate: true
+    immediate: true,
   }
-)
+);
 </script>
 <style lang="scss" scoped>
 .main {
@@ -191,7 +190,6 @@ watch(
         width: 100%;
         height: 110px;
 
-
         .el-input {
           width: 250px;
           position: relative;
@@ -199,10 +197,7 @@ watch(
           top: 30px;
         }
       }
-
-
     }
   }
 }
 </style>
-  

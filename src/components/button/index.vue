@@ -8,9 +8,7 @@
 const router = useRouter();
 
 const goDetail = (e) => {
-  router.push({
-    path: `/Home`,
-  });
+  router.go(-1); // 返回上一级路由
 };
 </script>
 

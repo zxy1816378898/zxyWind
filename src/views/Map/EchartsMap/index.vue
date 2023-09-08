@@ -10,7 +10,7 @@
 import * as echarts from 'echarts';
 import htbutt from '@/components/button';
 import mapjson from '@/assets/map/JiangSu.json';
-import HuaiAnJson from '@/assets/map/HuaiAn.json';
+import HuaiAnJson from '@/assets/map/huaian.json';
 const chart = ref();
 onMounted(() => {
   init();
@@ -198,7 +198,7 @@ function init() {
         aspectScale: 1,
         zoom: 0.65,
         layoutCenter: ['50%', '50%'],
-        layoutSize: '110%', 
+        layoutSize: '110%',
         show: true,
         roam: false,
         label: {
@@ -382,7 +382,6 @@ function init() {
   }, 2000);
 
   myChart.on('mouseover', function (params) {
-
     clearInterval(showTip);
     myChart.dispatchAction({
       type: 'showTip',
@@ -884,11 +883,11 @@ function init() {
   display: flex;
   justify-content: center;
   align-items: center;
-  .map{
+  .map {
     width: 100%;
     height: 100%;
   }
-  #backButton{
+  #backButton {
     position: absolute;
     left: 20%;
     z-index: 99;

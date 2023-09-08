@@ -2,7 +2,7 @@
   <htbutt></htbutt>
   <div class="main">
     <el-button type="primary" id="backButton">回退</el-button>
-    <div class="map" ref="chart" style="width: 100%; height: 100%"></div>
+    <div class="map" ref="chart"></div>
   </div>
 </template>
 
@@ -10,7 +10,7 @@
 import * as echarts from 'echarts';
 import htbutt from '@/components/button';
 import mapjson from '@/assets/map/JiangSu.json';
-import HuaiAn from '@/assets/map/HuaiAn.json';
+import HuaiAnJson from '@/assets/map/HuaiAn.json';
 const chart = ref();
 onMounted(() => {
   init();
@@ -133,7 +133,7 @@ var HuaiAnData = [
     coordinate: [119.019454, 33.018162],
   },
   {
-    name: '洪泽县',
+    name: '洪泽区',
     tradeBidsectionCount: 25,
     tradeProjectCount: 55,
     coordinate: [118.867562, 33.294975],
@@ -175,7 +175,7 @@ function init() {
       show: true,
       enterable: true,
       textStyle: {
-        fontSize: 13,
+        fontSize: 16,
         color: '#fff',
       },
       backgroundColor: 'rgba(0,2,89,0.8)',
@@ -198,7 +198,7 @@ function init() {
         aspectScale: 1,
         zoom: 0.65,
         layoutCenter: ['50%', '50%'],
-        layoutSize: '180%',
+        layoutSize: '110%', 
         show: true,
         roam: false,
         label: {
@@ -225,7 +225,7 @@ function init() {
         aspectScale: 1,
         zoom: 0.65,
         layoutCenter: ['50%', '51%'],
-        layoutSize: '180%',
+        layoutSize: '110%',
         roam: false,
         silent: true,
         itemStyle: {
@@ -247,7 +247,7 @@ function init() {
         aspectScale: 1,
         zoom: 0.65,
         layoutCenter: ['50%', '52%'],
-        layoutSize: '180%',
+        layoutSize: '110%',
         roam: false,
         silent: true,
         itemStyle: {
@@ -269,7 +269,7 @@ function init() {
         aspectScale: 1,
         zoom: 0.65,
         layoutCenter: ['50%', '53%'],
-        layoutSize: '180%',
+        layoutSize: '110%',
         roam: false,
         silent: true,
         itemStyle: {
@@ -291,7 +291,7 @@ function init() {
         aspectScale: 1,
         zoom: 0.65,
         layoutCenter: ['50%', '54%'],
-        layoutSize: '180%',
+        layoutSize: '110%',
         roam: false,
         silent: true,
         itemStyle: {
@@ -357,7 +357,7 @@ function init() {
           },
         },
         layoutCenter: ['50%', '50%'],
-        layoutSize: '180%',
+        layoutSize: '110%',
         markPoint: {
           symbol: 'none',
         },
@@ -382,7 +382,7 @@ function init() {
   }, 2000);
 
   myChart.on('mouseover', function (params) {
-    console.log(params);
+
     clearInterval(showTip);
     myChart.dispatchAction({
       type: 'showTip',
@@ -417,11 +417,8 @@ function init() {
     // 其他市的处理同理...
   });
   // 加载市级下的区县地图数据
-  function loadCityMapData(chartInstance, cityName) {
-    // 在实际应用中，你需要根据 cityName 请求后端获取相应的区县地图数据
-
-    // 假设你已经有了南京市下的区县地图数据，可以直接注册
-    echarts.registerMap('淮安市', HuaiAn);
+  function loadCityMapData(chartInstance) {
+    echarts.registerMap('淮安市', HuaiAnJson);
 
     // 更新地图配置
     var option = {
@@ -457,13 +454,12 @@ function init() {
         show: true,
         enterable: true,
         textStyle: {
-          fontSize: 13,
+          fontSize: 16,
           color: '#fff',
         },
         backgroundColor: 'rgba(0,2,89,0.8)',
         formatter: function (params) {
           var tipHtml = '';
-
           tipHtml = `
                     <div class="ui-map-img">
                         <div class='ui-maptxt'>${params.name}</div>
@@ -480,7 +476,7 @@ function init() {
           aspectScale: 1,
           zoom: 0.65,
           layoutCenter: ['50%', '50%'],
-          layoutSize: '180%',
+          layoutSize: '110%',
           show: true,
           roam: false,
           label: {
@@ -507,7 +503,7 @@ function init() {
           aspectScale: 1,
           zoom: 0.65,
           layoutCenter: ['50%', '51%'],
-          layoutSize: '180%',
+          layoutSize: '110%',
           roam: false,
           silent: true,
           itemStyle: {
@@ -529,7 +525,7 @@ function init() {
           aspectScale: 1,
           zoom: 0.65,
           layoutCenter: ['50%', '52%'],
-          layoutSize: '180%',
+          layoutSize: '110%',
           roam: false,
           silent: true,
           itemStyle: {
@@ -551,7 +547,7 @@ function init() {
           aspectScale: 1,
           zoom: 0.65,
           layoutCenter: ['50%', '53%'],
-          layoutSize: '180%',
+          layoutSize: '110%',
           roam: false,
           silent: true,
           itemStyle: {
@@ -573,7 +569,7 @@ function init() {
           aspectScale: 1,
           zoom: 0.65,
           layoutCenter: ['50%', '54%'],
-          layoutSize: '180%',
+          layoutSize: '110%',
           roam: false,
           silent: true,
           itemStyle: {
@@ -639,7 +635,7 @@ function init() {
             },
           },
           layoutCenter: ['50%', '50%'],
-          layoutSize: '180%',
+          layoutSize: '110%',
           markPoint: {
             symbol: 'none',
           },
@@ -686,7 +682,7 @@ function init() {
         show: true,
         enterable: true,
         textStyle: {
-          fontSize: 13,
+          fontSize: 16,
           color: '#fff',
         },
         backgroundColor: 'rgba(0,2,89,0.8)',
@@ -709,7 +705,7 @@ function init() {
           aspectScale: 1,
           zoom: 0.65,
           layoutCenter: ['50%', '50%'],
-          layoutSize: '180%',
+          layoutSize: '110%',
           show: true,
           roam: false,
           label: {
@@ -736,7 +732,7 @@ function init() {
           aspectScale: 1,
           zoom: 0.65,
           layoutCenter: ['50%', '51%'],
-          layoutSize: '180%',
+          layoutSize: '110%',
           roam: false,
           silent: true,
           itemStyle: {
@@ -758,7 +754,7 @@ function init() {
           aspectScale: 1,
           zoom: 0.65,
           layoutCenter: ['50%', '52%'],
-          layoutSize: '180%',
+          layoutSize: '110%',
           roam: false,
           silent: true,
           itemStyle: {
@@ -780,7 +776,7 @@ function init() {
           aspectScale: 1,
           zoom: 0.65,
           layoutCenter: ['50%', '53%'],
-          layoutSize: '180%',
+          layoutSize: '110%',
           roam: false,
           silent: true,
           itemStyle: {
@@ -802,7 +798,7 @@ function init() {
           aspectScale: 1,
           zoom: 0.65,
           layoutCenter: ['50%', '54%'],
-          layoutSize: '180%',
+          layoutSize: '110%',
           roam: false,
           silent: true,
           itemStyle: {
@@ -868,7 +864,7 @@ function init() {
             },
           },
           layoutCenter: ['50%', '50%'],
-          layoutSize: '180%',
+          layoutSize: '110%',
           markPoint: {
             symbol: 'none',
           },
@@ -883,10 +879,19 @@ function init() {
 <style lang="scss" scoped>
 .main {
   position: relative;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  .map{
+    width: 100%;
+    height: 100%;
+  }
+  #backButton{
+    position: absolute;
+    left: 20%;
+    z-index: 99;
+  }
 }
 </style>

@@ -234,7 +234,7 @@ const wzlbAyy = ref([
 
     .social {
       width: 482px;
-      height: 40px;
+      height: 50px;
       border-radius: 10px;
       display: flex;
       justify-content: flex-start;
@@ -265,7 +265,7 @@ const wzlbAyy = ref([
         width: 120px;
         height: auto;
         left: 355px;
-        top: 6px;
+        top: 13px;
 
         .li {
           font-size: 18px;

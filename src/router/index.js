@@ -139,13 +139,18 @@ const router = createRouter({
         },
         {
           path: "/EchartsMap",
-          name: "下钻地图",
+          name: "Echarts地图",
           component: () => import("@/views/Map/EchartsMap/index.vue"),
         },
         {
           path: "/GeneralMap",
-          name: "普通地图",
+          name: "高德地图",
           component: () => import("@/views/Map/GeneralMap/index.vue"),
+        },
+        {
+          path: "/ThreeMap",
+          name: "Three.js地图",
+          component: () => import("@/views/Map/ThreeMap/index.vue"),
         },
       ],
     },

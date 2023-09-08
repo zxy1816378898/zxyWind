@@ -29,12 +29,16 @@ const router = useRouter();
 
 const MapAyy = ref([
   {
-    name: '普通地图',
+    name: '高德地图',
     url: '/GeneralMap',
   },
   {
-    name: '下钻地图',
+    name: 'Echarts地图',
     url: '/EchartsMap',
+  },
+  {
+    name: 'Three.js地图',
+    url: '/ThreeMap',
   },
 ]);
 // 点击事件

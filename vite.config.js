@@ -1,7 +1,7 @@
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import AutoImport from "unplugin-auto-import/vite";
-
+import { viteMockServe } from 'vite-plugin-mock'
 
 export default defineConfig({
   plugins: [
@@ -9,6 +9,11 @@ export default defineConfig({
     AutoImport({
       imports: ["vue", "vue-router"],
     }),
+    viteMockServe({
+      supportTs: true,
+      logger: false,
+      mockPath: "./mock/" // 文件位置
+    })
   ],
   resolve: {
     extensions: [".mjs", ".js", ".ts", ".jsx", ".tsx", ".json", ".vue"],
@@ -16,8 +21,6 @@ export default defineConfig({
       "@": "/src",
     },
   },
-
-
   server: {
     port: 97,
     host: true,
@@ -33,8 +36,8 @@ export default defineConfig({
   },
 
   base: "./",
-  // publicDir: "public",
-  // publicPath: "/dist",
+  publicDir: "public",
+  publicPath: "/dist",
   css: {
     //引入scss
     preprocessorOptions: {
@@ -42,6 +45,9 @@ export default defineConfig({
         additionalData: '@import "@/assets/style/_mixin.scss";',
       },
     },
+  }
 
-  },
-});
+}
+)
+
+

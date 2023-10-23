@@ -1,43 +1,43 @@
 <template>
   <div class="main">
-
     <div class="left_aside">
-
       <div class="logo">
-
-        <div class="name">zxyWind<span>.top</span>
+        <div class="name">
+          zxyWind
+          <span>.top</span>
         </div>
-
       </div>
 
       <div class="message">
-
         <div class="contont">
           <span class="top iconfont icon-a-shuangyinhaozuo3x"></span>
-          <span class="text_1">Hello&nbsp;World&nbsp;!</span><br />
-          <span class="text_2">一个建立于 21 世纪的小站，存活于互联网的边缘</span>
+          <span class="text_1">Hello&nbsp;World&nbsp;!</span>
+          <br />
+          <span class="text_2">
+            一个建立于 21 世纪的小站，存活于互联网的边缘
+          </span>
           <span class="bot iconfont icon-a-shuangyinhaoyou3x"></span>
         </div>
-
       </div>
 
       <div class="social">
-
         <div class="icon" v-for="item in iconArr" @click="goDetail(item)">
-          <span :class="item.iconurl" class="iconli" @mouseenter="enter(item)" @mouseleave="leave(item)"></span>
+          <span
+            :class="item.iconurl"
+            class="iconli"
+            @mouseenter="enter(item)"
+            @mouseleave="leave(item)"
+          ></span>
         </div>
 
         <div class="titleAyy">
           <div class="li">{{ text }}</div>
         </div>
-
       </div>
     </div>
 
     <div class="right_aside">
-
       <div class="card">
-
         <div class="row">
           <Yiyan></Yiyan>
         </div>
@@ -45,11 +45,9 @@
         <div class="row">
           <Time></Time>
         </div>
-
       </div>
 
       <div class="links">
-
         <div class="wzlb">
           <span>网址列表</span>
         </div>
@@ -57,27 +55,23 @@
         <div class="link" v-for="item in wzlbAyy" @click="openPop(item)">
           <span :class="item.icon" class="iconli"></span>
           <span>{{ item.mc }}</span>
-
         </div>
 
         <pop ref="popRef"></pop>
-
       </div>
-
     </div>
-
   </div>
 </template>
 <script setup>
-import { ref } from "vue";
-import Yiyan from "@/components/yiyan"; // 引入 一言
-import Time from "@/components/time"; // 引入 时间 天气
-import pop from "./pop/echartsPop.vue"; // 引入弹窗
+import { ref } from 'vue';
+import Yiyan from '@/components/yiyan'; // 引入 一言
+import Time from '@/components/time'; // 引入 时间 天气
+import pop from './pop/echartsPop.vue'; // 引入弹窗
 const router = useRouter();
 const popRef = ref();
 // 点击事件
 const openPop = (a) => {
-  if (a.id === "6") {
+  if (a.id === '6') {
     popRef.value.openClick();
   } else {
     router.push({
@@ -90,54 +84,58 @@ const goDetail = (e) => {
   window.open(`${e.url}`); // 打开新窗口
 };
 //数组
-const text = ref("");
+const text = ref('');
 const iconArr = ref([
   {
-    name: "github",
-    iconurl: "iconfont icon-github",
-    url: "https://github.com/zxywind-9527",
-    text: "去Github看看",
+    name: 'github',
+    iconurl: 'iconfont icon-github',
+    url: 'https://github.com/zxywind-9527',
+    text: '去Github看看',
   },
   {
-    name: "qq",
-    iconurl: "iconfont icon-QQ",
-    url: "tencent://AddContact/?fromId=45&fromSubId=1&subcmd=all&uin=1816378898&website=www.oicqzone.com",
-    text: "有什么事么~",
+    name: 'qq',
+    iconurl: 'iconfont icon-QQ',
+    url: 'tencent://AddContact/?fromId=45&fromSubId=1&subcmd=all&uin=1816378898&website=www.oicqzone.com',
+    text: '有什么事么~',
   },
   {
-    name: "message",
-    iconurl: "iconfont icon-envelope-full",
-    url: "https://mail.qq.com/cgi-bin/frame_html?sid=wNK8XuDhRQZIfxNw&r=0032f2d7e46aa273ad1500cd001197f3&lang=zh",
-    text: "来封Email",
+    name: 'message',
+    iconurl: 'iconfont icon-envelope-full',
+    url: 'https://mail.qq.com/cgi-bin/frame_html?sid=wNK8XuDhRQZIfxNw&r=0032f2d7e46aa273ad1500cd001197f3&lang=zh',
+    text: '来封Email',
   },
   {
-    name: "TV",
-    iconurl: "iconfont icon-bilibili",
-    url: "https://space.bilibili.com/549753038?spm_id_from=333.976.0.0",
-    text: "到B站看看~",
+    name: 'TV',
+    iconurl: 'iconfont icon-bilibili',
+    url: 'https://space.bilibili.com/549753038?spm_id_from=333.976.0.0',
+    text: '到B站看看~',
   },
   {
-    name: "plane",
-    iconurl: "iconfont icon-paperPlane-fill",
-    url: "https://www.yuque.com/dashboard",
-    text: "来语雀看看~",
+    name: 'plane',
+    iconurl: 'iconfont icon-paperPlane-fill',
+    url: 'https://www.yuque.com/dashboard',
+    text: '来语雀看看~',
   },
 ]);
 const enter = (val) => {
   text.value = val.text;
 };
 const leave = (val) => {
-  text.value = "";
+  text.value = '';
 };
 const wzlbAyy = ref([
-  { id: "1", icon: "iconfont icon-wangyiyunyinle", mc: "Music", url: "Music" },
-  { id: "2", icon: "iconfont icon-biji", mc: "笔记", url: "Note" },
-  { id: "3", icon: "iconfont icon-shuyi_fanyi-36", mc: "翻译", url: "Translate" },
-  { id: "4", icon: "iconfont icon-compass", mc: "起始页", url: "Compass" },
-  { id: "5", icon: "iconfont icon-ditu", mc: "Map", url: "Map" },
-  { id: "6", icon: "iconfont icon-yaoji", mc: "Echarts" },
+  { id: '1', icon: 'iconfont icon-wangyiyunyinle', mc: 'Music', url: 'Music' },
+  { id: '2', icon: 'iconfont icon-biji', mc: '笔记', url: 'Note' },
+  {
+    id: '3',
+    icon: 'iconfont icon-shuyi_fanyi-36',
+    mc: '翻译',
+    url: 'Translate',
+  },
+  { id: '4', icon: 'iconfont icon-compass', mc: '起始页', url: 'Compass' },
+  { id: '5', icon: 'iconfont icon-ditu', mc: 'Map', url: 'Map' },
+  { id: '6', icon: 'iconfont icon-yaoji', mc: 'Echarts' },
 ]);
-
 </script>
 <style lang="scss" scoped>
 .main {
@@ -157,7 +155,6 @@ const wzlbAyy = ref([
     flex-direction: column;
     justify-content: center;
 
-
     .logo {
       display: flex;
       flex-direction: row;
@@ -176,7 +173,7 @@ const wzlbAyy = ref([
       .name {
         font-size: 50px;
         cursor: pointer;
-        font-family: "Pacifico-Regular" !important;
+        font-family: 'Pacifico-Regular' !important;
         color: #fff;
         text-align: center;
         margin-left: 15px;
@@ -220,7 +217,7 @@ const wzlbAyy = ref([
           margin-top: 25px;
           margin-left: 50px;
           font-size: 18px;
-          font-family: "Pacifico-Regular" !important;
+          font-family: 'Pacifico-Regular' !important;
         }
 
         .text_2 {
@@ -257,7 +254,6 @@ const wzlbAyy = ref([
 
       .icon {
         position: relative;
-
       }
 
       .titleAyy {
@@ -283,7 +279,6 @@ const wzlbAyy = ref([
         }
       }
     }
-
   }
 
   .right_aside {
@@ -321,9 +316,8 @@ const wzlbAyy = ref([
           color: #fff;
           margin-left: 10px;
           letter-spacing: 5px;
-          font-family: "Pacifico-Regular" !important;
+          font-family: 'Pacifico-Regular' !important;
         }
-
       }
 
       .link {
@@ -335,7 +329,7 @@ const wzlbAyy = ref([
         margin-top: 30px;
         margin-left: 5px;
         font-size: 22px;
-        font-family: "Pacifico-Regular" !important;
+        font-family: 'Pacifico-Regular' !important;
         color: #fff;
         transition: transform 1s cubic-bezier(0.06, 0.64, 1, 0.24);
 

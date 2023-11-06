@@ -1,7 +1,7 @@
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import AutoImport from "unplugin-auto-import/vite";
-import { viteMockServe } from 'vite-plugin-mock'
+
 
 export default defineConfig({
   plugins: [
@@ -9,11 +9,7 @@ export default defineConfig({
     AutoImport({
       imports: ["vue", "vue-router"],
     }),
-    viteMockServe({
-      supportTs: true,
-      logger: false,
-      mockPath: "./mock/" // 文件位置
-    })
+
   ],
   resolve: {
     extensions: [".mjs", ".js", ".ts", ".jsx", ".tsx", ".json", ".vue"],

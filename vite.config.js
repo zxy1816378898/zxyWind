@@ -1,15 +1,12 @@
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import AutoImport from "unplugin-auto-import/vite";
-
-
 export default defineConfig({
   plugins: [
     vue(),
     AutoImport({
       imports: ["vue", "vue-router"],
     }),
-
   ],
   resolve: {
     extensions: [".mjs", ".js", ".ts", ".jsx", ".tsx", ".json", ".vue"],
@@ -32,8 +29,8 @@ export default defineConfig({
   },
 
   base: "./",
-  publicDir: "public",
-  publicPath: "/dist",
+  // publicDir: "public",
+  // publicPath: "/dist",
   css: {
     //引入scss
     preprocessorOptions: {
@@ -41,9 +38,6 @@ export default defineConfig({
         additionalData: '@import "@/assets/style/_mixin.scss";',
       },
     },
-  }
 
-}
-)
-
-
+  },
+});

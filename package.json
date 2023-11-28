@@ -6,12 +6,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-<<<<<<< HEAD
     "deploy": "gh-pages -d dist",
     "prepare": "husky install"
-=======
-    "deploy": "gh-pages -d dist"
->>>>>>> parent of e743476 (feat: 添加规范)
   },
   "dependencies": {
     "@amap/amap-jsapi-loader": "^1.0.1",
@@ -34,12 +30,9 @@
     "cross-env": "^7.0.3",
     "gh-pages": "^5.0.0",
     "postcss-px-to-viewport": "^1.1.1",
-<<<<<<< HEAD
     "postcss-scss": "^4.0.9",
     "sass": "^1.55.0",
     "sass-loader": "^13.3.2",
-=======
->>>>>>> parent of e743476 (feat: 添加规范)
     "vite": "^3.1.0",
     "vite-plugin-mock": "^3.0.0"
   }

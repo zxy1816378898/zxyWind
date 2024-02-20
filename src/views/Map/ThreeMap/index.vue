@@ -1,7 +1,7 @@
 <template>
   <div class="main-box">
     <!-- 地图 -->
-    <div id="container"></div>
+    <div id="map"></div>
     <!-- 回退按钮 -->
     <htbutt></htbutt>
   </div>
@@ -10,215 +10,236 @@
 <script setup>
 import htbutt from '@/components/button';
 import * as THREE from 'three';
+import * as d3 from 'd3';
 import JiangSuMap from '@/assets/map/JiangSu.json';
-import * as d3 from 'd3'; //莫开托坐标 矫正地图坐标
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'; // 引入轨道控制器扩展库OrbitControls.js
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import {
+  CSS2DRenderer,
+  CSS2DObject,
+} from 'three/examples/jsm/renderers/CSS2DRenderer.js';
 
-const width = window.innerWidth,
-  height = window.innerHeight;
+function initializeMap() {
+  // 创建场景
+  const scene = new THREE.Scene();
 
-const handleProj = d3
-  .geoMercator()
-  .center([119, 32.8])
-  .scale(8000)
-  .translate([0, 0]); // d3投影转换函数
-const mapContainer = new THREE.Object3D(); // 存储地图Object3D对象
+  // 添加环境光
+  const ambientLight = new THREE.AmbientLight(0xd4e7fd, 4);
+  scene.add(ambientLight);
 
-// 创建相机
-const camera = new THREE.PerspectiveCamera(70, width / height, 0.01, 1000);
-camera.position.z = 1000;
+  // 添加方向光
+  const directionalLight = new THREE.DirectionalLight(0xe8eaeb, 0.2);
+  directionalLight.position.set(0, 10, 5);
+  const directionalLight2 = directionalLight.clone();
+  directionalLight2.position.set(0, 10, -5);
+  const directionalLight3 = directionalLight.clone();
+  directionalLight3.position.set(5, 10, 0);
+  const directionalLight4 = directionalLight.clone();
+  directionalLight4.position.set(-5, 10, 0);
+  scene.add(
+    directionalLight,
+    directionalLight2,
+    directionalLight3,
+    directionalLight4
+  );
 
-// 创建3D场景对象Scene
-const scene = new THREE.Scene();
-// 将场景背景颜色设置为透明
-scene.background = new THREE.Color(0, 0, 0, 0);
+  // 创建相机
+  const camera = new THREE.PerspectiveCamera(
+    75,
+    window.innerWidth / window.innerHeight,
+    0.1,
+    1000
+  );
+  camera.position.y = 8;
+  camera.position.z = 8;
 
-// 初始化环境光
-const initLight = () => {
-  const ambLight = new THREE.AmbientLight('#ffffff', 1.9); // 基本光源
-  const globalAmbLight = new THREE.AmbientLight('#ffffff', 0.6); // 全局环境光
-  /**
-   * 设置聚光灯相关的的属性
-   */
-  const spotLight = new THREE.SpotLight(0xffffff, 2); // 聚光灯
-  spotLight.position.set(0, 0, 300); // 调整聚光灯位置
-  spotLight.castShadow = true; // 只有该属性为true时，该点光源允许产生阴影，并且下列属性可用
-  scene.add(ambLight, globalAmbLight, spotLight); // 向场景中添加光源
+  // 创建CSS2DRenderer以渲染2D标签
+  const labelRenderer = new CSS2DRenderer();
+  labelRenderer.domElement.style.position = 'absolute';
+  labelRenderer.domElement.style.top = '0px';
+  labelRenderer.domElement.style.pointerEvents = 'none';
+  labelRenderer.setSize(window.innerWidth, window.innerHeight);
+  document.getElementById('map').appendChild(labelRenderer.domElement);
 
-  const axesHelper = new THREE.AxesHelper(500);
-  scene.add(axesHelper);
-};
+  // 创建WebGLRenderer以渲染3D场景
+  const renderer = new THREE.WebGLRenderer({ alpha: true });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  document.getElementById('map').appendChild(renderer.domElement);
 
-// 初始化渲染器
-const renderer = new THREE.WebGLRenderer({ antialias: true });
-renderer.setSize(width, height);
+  // 创建轨道控制器
+  const controls = new OrbitControls(camera, renderer.domElement);
+  controls.update();
 
-// 初始化地理数据集
-const initGeom = () => {
-  handleData(JiangSuMap);
-};
-
-// 处理地图数据 GeoJson data
-const handleData = (jsonData) => {
-  const feaureList = jsonData.features;
-  feaureList.forEach((feature) => {
-    // 每个feature都代表一个省份
-    const province = new THREE.Object3D();
-    province.properties = feature.properties.name; // 省份名称
-    province.name = feature.properties.name; // 省份名称
-    mapContainer.name = feature.properties.name; // 省份名称
-    const coordinates = feature.geometry.coordinates; // 省份坐标信息
-    if (feature.geometry.type === 'MultiPolygon') {
-      coordinates.forEach((coord) => {
-        coord.forEach((coordinate) => {
-          // 三维多边形
-          const extrudeMesh = creatDepthPolygon(coordinate);
-          extrudeMesh.properties = feature.properties.name;
-          // 线条
-          const line = createLine(coordinate);
-          province.add(extrudeMesh);
-          province.add(line);
-        });
-      });
-    }
-    if (feature.geometry.type === 'Polygon') {
-      coordinates.forEach((coordinate) => {
-        // 三维多边形
-        const extrudeMesh = creatDepthPolygon(coordinate);
-        extrudeMesh.properties = feature.properties.name;
-        // 线条
-        const line = createLine(coordinate);
-        province.add(extrudeMesh);
-        province.add(line);
-      });
-    }
-    mapContainer.add(province);
-  });
-  scene.add(mapContainer);
-};
-
-// 创建三维多边形
-const creatDepthPolygon = (coordinate) => {
-  const shape = new THREE.Shape();
-
-  coordinate.forEach((item, index) => {
-    // 每一个item都是MultiPolygon中的一个polygon
-    const [x_XYZ, y_XYZ] = handleProj(item);
-    if (index === 0) {
-      shape.moveTo(x_XYZ, -y_XYZ);
-    } else {
-      shape.lineTo(x_XYZ, -y_XYZ);
-    }
-  });
-  const extrudeSettings = {
-    steps: 2,
-    depth: 16,
-    bevelEnabled: true,
-    bevelThickness: 1,
-    bevelSize: 1,
-    bevelOffset: 0,
-    bevelSegments: 1,
+  // 动画函数
+  const animate = () => {
+    requestAnimationFrame(animate);
+    controls.update();
+    renderer.render(scene, camera);
+    labelRenderer.render(scene, camera);
   };
+  animate();
 
-  const geometry = new THREE.ExtrudeGeometry(shape, extrudeSettings);
-
-  const material = new THREE.MeshBasicMaterial({
-    // color: new THREE.Color(Math.random() * 0xffffff), // 每个省随机赋色
-    color: '#d13a34',
-    transparent: true,
-    opacity: 0.6,
-  });
-  return new THREE.Mesh(geometry, material);
-};
-
-// 创建线条
-const createLine = (coordinate) => {
-  const material = new THREE.LineBasicMaterial({
-    color: '#ffffff',
-  });
-  const points = [];
-  coordinate.forEach((item, index) => {
-    // 每一个item都是MultiPolygon中的一个polygon
-    const [x_XYZ, y_XYZ] = handleProj(item);
-    points.push(new THREE.Vector3(x_XYZ, -y_XYZ, 25));
+  // 监听窗口大小变化
+  window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    labelRenderer.setSize(window.innerWidth, window.innerHeight);
   });
 
-  const geometry = new THREE.BufferGeometry().setFromPoints(points);
+  // 创建地图
+  const map = createMap(JiangSuMap);
+  scene.add(map);
 
-  return new THREE.Line(geometry, material);
-};
+  let intersect = null;
 
-// 光线投射Raycaster
-const raycaster = new THREE.Raycaster();
-const pointer = new THREE.Vector2();
-
-//鼠标放上去 改变颜色 显示地区名字
-let activeIntersects = []; //鼠标滑过数据
-const onPointerMove = (event) => {
-  let container = document.querySelector('#container');
-  // 将鼠标位置归一化为设备坐标。x 和 y 方向的取值范围是 (-1 to +1)
-  pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
-  pointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
-
-  // 通过摄像机和鼠标位置更新射线
-  raycaster.setFromCamera(pointer, camera);
-
-  // 判断数组是否有数据，有数据全部设置为原始数据
-  if (activeIntersects.length) {
-    for (let i = 0; i < activeIntersects.length; i++) {
-      activeIntersects[i].object.material.color.set('#d13a34');
-    }
+  function isAlpha(intersect, opacity) {
+    intersect.children.forEach((item) => {
+      if (item.type === 'Mesh') {
+        item.material.opacity = opacity;
+      }
+    });
   }
-  // 计算物体和射线的焦点
-  const intersects = raycaster.intersectObjects(scene.children);
 
-  // if (intersects.length && intersects[0].object.parent.name) {
-  //   // 设置hove 弹框的宽高
-  //   container.style.left = event.clientX + 'px';
-  //   container.style.top = event.clientY + 'px';
-  //   container.style.display = 'block';
-  //   container.innerHTML = intersects[0].object.parent.name;
-  // } else {
-  //   container.style.display = 'none';
-  // }
-
-  // 数组数据清空
-  activeIntersects = [];
-
-  // 滑过的当前这个高亮
-  for (let i = 0; i < intersects.length; i++) {
-    if (intersects[i].object.type === 'Mesh') {
-      intersects[i].object.material.color.set(0xff0000);
-      activeIntersects.push(intersects[i]);
+  // 监听鼠标点击事件
+  window.addEventListener('pointerdown', (event) => {
+    const mouse = new THREE.Vector2();
+    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+    const raycaster = new THREE.Raycaster();
+    raycaster.setFromCamera(mouse, camera);
+    const intersects = raycaster
+      .intersectObjects(map.children)
+      .filter((item) => item.object.type !== 'Line');
+    if (intersects.length > 0) {
+      if (intersects[0].object.type === 'Mesh') {
+        if (intersect) isAlpha(intersect, 1);
+        intersect = intersects[0].object.parent;
+        isAlpha(intersect, 0.4);
+      }
+      if (intersects[0].object.type === 'Sprite') {
+        console.log(intersects[0].object);
+      }
+    } else {
+      if (intersect) isAlpha(intersect, 1);
     }
-  }
-};
+  });
 
-window.addEventListener('pointermove', onPointerMove);
-// 设置相机控件轨道控制器OrbitControls
-const controls = new OrbitControls(camera, renderer.domElement);
-controls.enableDamping = true; //阻尼 更真实
+  // 设置地图中心
+  setCenter(map);
+}
 
-// 辅助线 AxesHelper
-const axesHelper = new THREE.AxesHelper(500);
-scene.add(axesHelper);
-
-// 渲染
-// 因为后期是每一帧都需要渲染，需要封装一个渲染函数
-const render = () => {
-  // 使用渲染器，通过相机 将场景渲染出来
-  renderer.render(scene, camera);
-  // 渲染下一帧的时候会调用render函数
-  requestAnimationFrame(render);
-};
-
-// 4.获取dom实例
 onMounted(() => {
-  initGeom();
-  initLight();
-  render();
-  document.getElementById('container').appendChild(renderer.domElement);
+  initializeMap();
 });
+
+const offsetXY = d3.geoMercator();
+
+// 创建地图函数
+const createMap = (data) => {
+  const map = new THREE.Object3D();
+  const center = data.features[0].properties.centroid;
+  offsetXY.center(center).translate([0, 0]);
+  data.features.forEach((feature) => {
+    const unit = new THREE.Object3D();
+    const { centroid, center, name } = feature.properties;
+    const { coordinates, type } = feature.geometry;
+    const point = centroid || center || [0, 0];
+
+    const color = new THREE.Color(`hsl(
+      ${233},
+      ${Math.random() * 30 + 55}%,
+      ${Math.random() * 30 + 55}%)`).getHex();
+    const depth = Math.random() * 0.3 + 0.3;
+
+    const label = createLabel(name, point, depth);
+
+    coordinates.forEach((coordinate) => {
+      if (type === 'MultiPolygon') coordinate.forEach((item) => fn(item));
+      if (type === 'Polygon') fn(coordinate);
+
+      function fn(coordinate) {
+        unit.name = name;
+        const mesh = createMesh(coordinate, color, depth);
+        const line = createLine(coordinate, depth);
+        unit.add(mesh, ...line);
+      }
+    });
+    map.add(unit, label);
+  });
+  return map;
+};
+
+// 创建地图网格函数
+const createMesh = (data, color, depth) => {
+  const shape = new THREE.Shape();
+  data.forEach((item, idx) => {
+    const [x, y] = offsetXY(item);
+
+    if (idx === 0) shape.moveTo(x, -y);
+    else shape.lineTo(x, -y);
+  });
+
+  const extrudeSettings = {
+    depth: depth,
+    bevelEnabled: false,
+  };
+  const materialSettings = {
+    color: color,
+    emissive: 0x000000,
+    roughness: 0.45,
+    metalness: 0.8,
+    transparent: true,
+    side: THREE.DoubleSide,
+  };
+  const geometry = new THREE.ExtrudeGeometry(shape, extrudeSettings);
+  const material = new THREE.MeshStandardMaterial(materialSettings);
+  const mesh = new THREE.Mesh(geometry, material);
+
+  return mesh;
+};
+
+// 创建地图边界线函数
+const createLine = (data, depth) => {
+  const points = [];
+  data.forEach((item) => {
+    const [x, y] = offsetXY(item);
+    points.push(new THREE.Vector3(x, -y, 0));
+  });
+  const lineGeometry = new THREE.BufferGeometry().setFromPoints(points);
+  const uplineMaterial = new THREE.LineBasicMaterial({ color: 0xffffff });
+  const downlineMaterial = new THREE.LineBasicMaterial({ color: 0xffffff });
+
+  const upLine = new THREE.Line(lineGeometry, uplineMaterial);
+  const downLine = new THREE.Line(lineGeometry, downlineMaterial);
+  downLine.position.z = -0.0001;
+  upLine.position.z = depth + 0.0001;
+  return [upLine, downLine];
+};
+
+// 创建地图标签函数
+const createLabel = (name, point, depth) => {
+  const div = document.createElement('div');
+  div.style.color = '#fff';
+  div.style.fontSize = '12px';
+  div.style.textShadow = '1px 1px 2px #047cd6';
+  div.textContent = name;
+  const label = new CSS2DObject(div);
+  label.scale.set(0.01, 0.01, 0.01);
+  const [x, y] = offsetXY(point);
+  label.position.set(x, -y, depth);
+  return label;
+};
+
+// 设置地图中心位置函数
+const setCenter = (map) => {
+  map.rotation.x = -Math.PI / 2;
+  const box = new THREE.Box3().setFromObject(map);
+  const center = box.getCenter(new THREE.Vector3());
+
+  const offset = [0, 2];
+  map.position.x = map.position.x - center.x - offset[1];
+  map.position.z = map.position.z - center.z - offset[1];
+};
 </script>
 
 <style lang="scss" scoped>
@@ -231,7 +252,7 @@ onMounted(() => {
   height: 100vh;
 }
 
-#container {
+#map {
   padding: 0px;
   margin: 0px;
   width: 100%;

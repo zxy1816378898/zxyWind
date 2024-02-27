@@ -9,18 +9,18 @@
   </div>
 </template>
 <script setup>
-import myaxios from "axios";
+import myaxios from 'axios';
 const weatherAyy = ref([
   {
-    city: "",
-    type: "",
-    high: "",
-    low: "",
+    city: '',
+    type: '',
+    high: '',
+    low: '',
   },
 ]);
 
 const getWeather = () => {
-  myaxios.get("https://api.vvhan.com/api/weather?city=淮安").then((res) => {
+  myaxios.get('https://api.vvhan.com/api/weather?city=淮安').then((res) => {
     //此处地址暂时写死，后死更换
     const { data } = res;
 
@@ -39,7 +39,7 @@ getWeather();
 </script>
 <style lang="scss" scoped>
 .weather {
-  font-size: 1rem;
+  font-size: 20px;
 
   .item {
     display: flex;

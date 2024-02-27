@@ -12,8 +12,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs } from "vue";
-import Weather from "../weather/index.vue"; // 引入天气组件
+import { defineComponent, reactive, toRefs } from 'vue';
+import Weather from '../weather/index.vue'; // 引入天气组件
 interface dataType {
   date: string;
 
@@ -23,7 +23,7 @@ interface dataType {
 }
 
 export default defineComponent({
-  name: "GlobalHeader",
+  name: 'GlobalHeader',
   components: {
     Weather,
   },
@@ -31,11 +31,11 @@ export default defineComponent({
     const list: any[] = [];
 
     const state: dataType = reactive({
-      date: "",
+      date: '',
 
-      time: "",
+      time: '',
 
-      week: "",
+      week: '',
 
       showIndex: 0,
     });
@@ -45,19 +45,19 @@ export default defineComponent({
     const getTime = async () => {
       var myDate = new Date();
 
-      let month = (myDate.getMonth() + 1).toString().padStart(2, "0");
+      let month = (myDate.getMonth() + 1).toString().padStart(2, '0');
 
-      let day = myDate.getDate().toString().padStart(2, "0");
+      let day = myDate.getDate().toString().padStart(2, '0');
 
-      let hour = myDate.getHours().toString().padStart(2, "0");
+      let hour = myDate.getHours().toString().padStart(2, '0');
 
-      let minutes = myDate.getMinutes().toString().padStart(2, "0");
+      let minutes = myDate.getMinutes().toString().padStart(2, '0');
 
-      let seconed = myDate.getSeconds().toString().padStart(2, "0");
+      let seconed = myDate.getSeconds().toString().padStart(2, '0');
 
-      state.date = myDate.getFullYear() + "-" + month + "-" + day;
+      state.date = myDate.getFullYear() + '-' + month + '-' + day;
 
-      state.time = hour + ":" + minutes + ":" + seconed;
+      state.time = hour + ':' + minutes + ':' + seconed;
     };
 
     // 获取当前星期几
@@ -68,19 +68,19 @@ export default defineComponent({
       var day = now.getDay();
 
       var weeks = [
-        "星期日",
+        '星期日',
 
-        "星期一",
+        '星期一',
 
-        "星期二",
+        '星期二',
 
-        "星期三",
+        '星期三',
 
-        "星期四",
+        '星期四',
 
-        "星期五",
+        '星期五',
 
-        "星期六",
+        '星期六',
       ];
 
       state.week = weeks[day];
@@ -121,14 +121,14 @@ export default defineComponent({
     flex-direction: row;
     justify-content: flex-start;
     .time {
-      position: absolute;
-      font-size: 3.5rem;
-      font-family: "UnidreamLED" !important;
+      font-size: 60px;
+      font-family: 'UnidreamLED' !important;
       color: #ffffff;
       letter-spacing: 2px;
-      margin-top: 30px;
-      margin-left: 20%;
       cursor: pointer;
+
+      position: relative;
+      margin: 25px auto;
     }
     .dateTime {
       width: 100%;
@@ -137,16 +137,11 @@ export default defineComponent({
       flex-direction: row;
       justify-content: space-around;
       div {
-        font-size: 1.35rem;
+        font-size: 20px;
         color: #ffffff;
         letter-spacing: 3px;
       }
     }
-  }
-  .weather {
-    width: 100%;
-    height: 30%;
-    line-height: 200%;
   }
 }
 </style>

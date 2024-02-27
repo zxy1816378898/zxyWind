@@ -73,6 +73,8 @@ const popRef = ref();
 const openPop = (a) => {
   if (a.id === '6') {
     popRef.value.openClick();
+  } else if (a.id === '2') {
+    window.open('https://vitepress-xiaoyang.vercel.app/', '_blank');
   } else {
     router.push({
       path: `/${a.url}`,

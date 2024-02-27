@@ -10,7 +10,7 @@
 import * as echarts from 'echarts';
 import htbutt from '@/components/button';
 import mapjson from '@/assets/map/JiangSu.json';
-import HuaiAnJson from '@/assets/map/HuaiAn.json';
+import HuaiAnJson from '@/assets/map/huaian.json';
 const chart = ref();
 onMounted(() => {
   init();

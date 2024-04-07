@@ -2,7 +2,11 @@
   <div class="main">
     <div class="left_aside">
       <div class="logo">
-        <img class="imgLogo" :src="logo" alt="" />
+        <a
+          href="https://vitepress-xiaoyang-qt4vga0cb-zxy1816378898.vercel.app/"
+        >
+          <img class="imgLogo" :src="logo" alt="" />
+        </a>
         <!-- <div class="name">zxyWind<span>.top</span>
         </div> -->
       </div>

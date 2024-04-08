@@ -17,6 +17,7 @@ import {
   CSS2DRenderer,
   CSS2DObject,
 } from 'three/examples/jsm/renderers/CSS2DRenderer.js';
+import HaMapBg from './img/huaian_bg.png';
 
 function initializeMap() {
   // 创建场景
@@ -164,6 +165,14 @@ const createMap = (data) => {
         unit.add(mesh, ...line);
       }
     });
+    const textureLoader = new THREE.TextureLoader();
+    const topTexture = textureLoader.load(HaMapBg);
+    topTexture.center.set(0, 0);
+    topTexture.wrapS = THREE.ClampToEdgeWrapping;
+    topTexture.wrapT = THREE.ClampToEdgeWrapping;
+    topTexture.repeat.set(0.2, 0.2);
+    topTexture.offset.set(0.52, 0.28);
+
     map.add(unit, label);
   });
   return map;
@@ -178,6 +187,14 @@ const createMesh = (data, color, depth) => {
     if (idx === 0) shape.moveTo(x, -y);
     else shape.lineTo(x, -y);
   });
+  const textureLoader = new THREE.TextureLoader();
+  const topTexture = textureLoader.load(HaMapBg);
+
+  topTexture.center.set(0, 0);
+  topTexture.wrapS = THREE.ClampToEdgeWrapping;
+  topTexture.wrapT = THREE.ClampToEdgeWrapping;
+  topTexture.repeat.set(0.2, 0.2);
+  topTexture.offset.set(0.12, 0.18);
 
   const extrudeSettings = {
     depth: depth,
@@ -190,7 +207,9 @@ const createMesh = (data, color, depth) => {
     metalness: 0.8,
     transparent: true,
     side: THREE.DoubleSide,
+    map: topTexture,
   };
+  // 创建一个网格并将材质应用到它上面
   const geometry = new THREE.ExtrudeGeometry(shape, extrudeSettings);
   const material = new THREE.MeshStandardMaterial(materialSettings);
   const mesh = new THREE.Mesh(geometry, material);
@@ -206,8 +225,8 @@ const createLine = (data, depth) => {
     points.push(new THREE.Vector3(x, -y, 0));
   });
   const lineGeometry = new THREE.BufferGeometry().setFromPoints(points);
-  const uplineMaterial = new THREE.LineBasicMaterial({ color: 0xffffff });
-  const downlineMaterial = new THREE.LineBasicMaterial({ color: 0xffffff });
+  const uplineMaterial = new THREE.LineBasicMaterial({ color: 0x4655b8 });
+  const downlineMaterial = new THREE.LineBasicMaterial({ color: 0x4655b8 });
 
   const upLine = new THREE.Line(lineGeometry, uplineMaterial);
   const downLine = new THREE.Line(lineGeometry, downlineMaterial);

@@ -23,13 +23,12 @@ const getWeather = () => {
   myaxios.get('https://api.vvhan.com/api/weather?city=淮安').then((res) => {
     //此处地址暂时写死，后死更换
     const { data } = res;
-
     let newData = [
       {
         city: data.city,
-        type: data.info.type,
-        high: data.info.high,
-        low: data.info.low,
+        type: data.data.type,
+        high: data.data.high,
+        low: data.data.low,
       },
     ];
     weatherAyy.value = newData;

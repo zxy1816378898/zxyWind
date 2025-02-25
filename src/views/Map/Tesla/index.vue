@@ -38,6 +38,8 @@ import {
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
+// 使用相对路径导入 GLTF 文件
+const teslaModelUrl = '/public/3d/tesla/scene.gltf';
 // 车身颜色数组
 const colorAry = [
   'rgb(216, 27, 67)',
@@ -121,7 +123,7 @@ const setControls = () => {
 
 // 初始化函数
 const init = async () => {
-  const gltf = await loadFile('/src/assets/3d/tesla/scene.gltf'); // 加载3D模型
+  const gltf = await loadFile(teslaModelUrl); // 使用导入的 URL
   setCamera();
   setLight();
   // setFloor();  // 如果需要地面，可以取消注释

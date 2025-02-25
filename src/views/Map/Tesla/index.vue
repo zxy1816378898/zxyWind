@@ -39,7 +39,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
 // 使用相对路径导入 GLTF 文件
-const teslaModelUrl = '/public/3d/tesla/scene.gltf';
+const teslaModelUrl = '/3d/tesla/scene.gltf';
 // 车身颜色数组
 const colorAry = [
   'rgb(216, 27, 67)',

@@ -40,6 +40,10 @@ const MapAyy = ref([
     name: 'Three.js地图',
     url: '/ThreeMap',
   },
+  {
+    name: 'Tesla',
+    url: '/Tesla',
+  },
 ]);
 // 点击事件
 const openPop = (a) => {

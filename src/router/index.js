@@ -152,6 +152,11 @@ const router = createRouter({
           name: "Three.js地图",
           component: () => import("@/views/Map/ThreeMap/index.vue"),
         },
+        {
+          path: '/Tesla',
+          name: 'Tesla',
+          component: () => import('@/views/Map/Tesla/index.vue')
+        }
       ],
     },
 

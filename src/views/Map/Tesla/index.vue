@@ -121,7 +121,7 @@ const setControls = () => {
 
 // 初始化函数
 const init = async () => {
-  const gltf = await loadFile('src/assets/3d/tesla/scene.gltf'); // 加载3D模型
+  const gltf = await loadFile('/src/assets/3d/tesla/scene.gltf'); // 加载3D模型
   setCamera();
   setLight();
   // setFloor();  // 如果需要地面，可以取消注释
